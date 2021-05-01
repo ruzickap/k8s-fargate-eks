@@ -1,10 +1,10 @@
-# Amazon EKS Fargate
+# Amazon EKS on AWS Fargate
 
 ![Amazon EKS](https://raw.githubusercontent.com/cncf/landscape/7f5b02ecba914a32912e77fc78e1c54d1c2f98ec/hosted_logos/amazon-eks.svg?sanitize=true
 "Amazon EKS")
 
 Before starting with the main content, it's necessary to provision
-the [Amazon Fargate with EKS](https://aws.amazon.com/eks/) in AWS.
+the [Amazon EKS on AWS Fargate](https://aws.amazon.com/eks/) in AWS.
 
 ## Requirements
 
@@ -17,7 +17,7 @@ The `LETSENCRYPT_ENVIRONMENT` variable should be one of:
 * `production` - Let’s Encrypt will create valid certificate (use with care)
 
 `BASE_DOMAIN` contains DNS records for all your Kubernetes clusters. The cluster
-names will look like `CLUSTER_NAME`.`BASE_DOMAIN` (`k1.k8s.mylabs.dev`).
+names will look like `CLUSTER_NAME`.`BASE_DOMAIN` (`k2.k8s.mylabs.dev`).
 
 ```bash
 # Hostname / FQDN definitions
@@ -192,7 +192,7 @@ localhost | CHANGED => {
 }
 ```
 
-## Add new domain to Route 53, Policies, S3
+## Add new domain to Route 53 and Policies
 
 Details with examples are described on these links:
 
@@ -268,9 +268,151 @@ Resources:
           - logs:DescribeLogStreams
           - logs:PutLogEvents
           Resource: "*"
+  AWSLoadBalancerControllerPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: !Sub "${ClusterFQDN}-AWSLoadBalancerControllerPolicy"
+      Description: !Sub "Policy required by AWS LoadBalancer Controller for ${ClusterFQDN}"
+      PolicyDocument:
+        # https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/main/docs/install/iam_policy.json
+        Version: "2012-10-17"
+        Statement:
+        - Effect: Allow
+          Action:
+          - iam:CreateServiceLinkedRole
+          - ec2:DescribeAccountAttributes
+          - ec2:DescribeAddresses
+          - ec2:DescribeInternetGateways
+          - ec2:DescribeVpcs
+          - ec2:DescribeSubnets
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeInstances
+          - ec2:DescribeNetworkInterfaces
+          - ec2:DescribeTags
+          - elasticloadbalancing:DescribeLoadBalancers
+          - elasticloadbalancing:DescribeLoadBalancerAttributes
+          - elasticloadbalancing:DescribeListeners
+          - elasticloadbalancing:DescribeListenerCertificates
+          - elasticloadbalancing:DescribeSSLPolicies
+          - elasticloadbalancing:DescribeRules
+          - elasticloadbalancing:DescribeTargetGroups
+          - elasticloadbalancing:DescribeTargetGroupAttributes
+          - elasticloadbalancing:DescribeTargetHealth
+          - elasticloadbalancing:DescribeTags
+          Resource: "*"
+        - Effect: Allow
+          Action:
+          - cognito-idp:DescribeUserPoolClient
+          - acm:ListCertificates
+          - acm:DescribeCertificate
+          - iam:ListServerCertificates
+          - iam:GetServerCertificate
+          - waf-regional:GetWebACL
+          - waf-regional:GetWebACLForResource
+          - waf-regional:AssociateWebACL
+          - waf-regional:DisassociateWebACL
+          - wafv2:GetWebACL
+          - wafv2:GetWebACLForResource
+          - wafv2:AssociateWebACL
+          - wafv2:DisassociateWebACL
+          - shield:GetSubscriptionState
+          - shield:DescribeProtection
+          - shield:CreateProtection
+          - shield:DeleteProtection
+          Resource: "*"
+        - Effect: Allow
+          Action:
+          - ec2:AuthorizeSecurityGroupIngress
+          - ec2:RevokeSecurityGroupIngress
+          Resource: "*"
+        - Effect: Allow
+          Action:
+          - ec2:CreateSecurityGroup
+          Resource: "*"
+        - Effect: Allow
+          Action:
+          - ec2:CreateTags
+          Resource: arn:aws:ec2:*:*:security-group/*
+          Condition:
+            StringEquals:
+              ec2:CreateAction: CreateSecurityGroup
+            "Null":
+              aws:RequestTag/elbv2.k8s.aws/cluster: "false"
+        - Effect: Allow
+          Action:
+          - ec2:CreateTags
+          - ec2:DeleteTags
+          Resource: arn:aws:ec2:*:*:security-group/*
+          Condition:
+            "Null":
+              aws:RequestTag/elbv2.k8s.aws/cluster: "true"
+              aws:ResourceTag/elbv2.k8s.aws/cluster: "false"
+        - Effect: Allow
+          Action:
+          - ec2:AuthorizeSecurityGroupIngress
+          - ec2:RevokeSecurityGroupIngress
+          - ec2:DeleteSecurityGroup
+          Resource: "*"
+          Condition:
+            "Null":
+              aws:ResourceTag/elbv2.k8s.aws/cluster: "false"
+        - Effect: Allow
+          Action:
+          - elasticloadbalancing:CreateLoadBalancer
+          - elasticloadbalancing:CreateTargetGroup
+          Resource: "*"
+          Condition:
+            "Null":
+              aws:RequestTag/elbv2.k8s.aws/cluster: "false"
+        - Effect: Allow
+          Action:
+          - elasticloadbalancing:CreateListener
+          - elasticloadbalancing:DeleteListener
+          - elasticloadbalancing:CreateRule
+          - elasticloadbalancing:DeleteRule
+          Resource: "*"
+        - Effect: Allow
+          Action:
+          - elasticloadbalancing:AddTags
+          - elasticloadbalancing:RemoveTags
+          Resource:
+          - arn:aws:elasticloadbalancing:*:*:targetgroup/*/*
+          - arn:aws:elasticloadbalancing:*:*:loadbalancer/net/*/*
+          - arn:aws:elasticloadbalancing:*:*:loadbalancer/app/*/*
+          Condition:
+            "Null":
+              aws:RequestTag/elbv2.k8s.aws/cluster: "true"
+              aws:ResourceTag/elbv2.k8s.aws/cluster: "false"
+        - Effect: Allow
+          Action:
+          - elasticloadbalancing:ModifyLoadBalancerAttributes
+          - elasticloadbalancing:SetIpAddressType
+          - elasticloadbalancing:SetSecurityGroups
+          - elasticloadbalancing:SetSubnets
+          - elasticloadbalancing:DeleteLoadBalancer
+          - elasticloadbalancing:ModifyTargetGroup
+          - elasticloadbalancing:ModifyTargetGroupAttributes
+          - elasticloadbalancing:DeleteTargetGroup
+          Resource: "*"
+          Condition:
+            "Null":
+              aws:ResourceTag/elbv2.k8s.aws/cluster: "false"
+        - Effect: Allow
+          Action:
+          - elasticloadbalancing:RegisterTargets
+          - elasticloadbalancing:DeregisterTargets
+          Resource: arn:aws:elasticloadbalancing:*:*:targetgroup/*/*
+        - Effect: Allow
+          Action:
+          - elasticloadbalancing:SetWebAcl
+          - elasticloadbalancing:ModifyListener
+          - elasticloadbalancing:AddListenerCertificates
+          - elasticloadbalancing:RemoveListenerCertificates
+          - elasticloadbalancing:ModifyRule
+          Resource: "*"
 Outputs:
   Route53Policy:
-    Description: The ARN of the created AmazonRoute53Domains policy
+    Description: The ARN of the created Route53Policy
     Value:
       Ref: Route53Policy
     Export:
@@ -284,12 +426,20 @@ Outputs:
       Name:
         Fn::Sub: "${AWS::StackName}-HostedZone"
   CloudWatchPolicy:
-    Description: The ARN of the created CloudWatchPolicy policy
+    Description: The ARN of the created CloudWatchPolicy
     Value:
       Ref: CloudWatchPolicy
     Export:
       Name:
         Fn::Sub: "${AWS::StackName}-CloudWatchPolicy"
+  AWSLoadBalancerControllerPolicy:
+    Description: The ARN of the created AWSLoadBalancerControllerPolicy
+    Value:
+      Ref: AWSLoadBalancerControllerPolicy
+    Export:
+      Name:
+        Fn::Sub: "${AWS::StackName}-AWSLoadBalancerControllerPolicy"
+
 EOF
 
 eval aws cloudformation deploy --capabilities CAPABILITY_NAMED_IAM \
@@ -299,6 +449,7 @@ eval aws cloudformation deploy --capabilities CAPABILITY_NAMED_IAM \
 AWS_CLOUDFORMATION_DETAILS=$(aws cloudformation describe-stacks --stack-name "${CLUSTER_NAME}-route53-cloudwatch")
 ROUTE53_POLICY_ARN=$(echo "${AWS_CLOUDFORMATION_DETAILS}" | jq -r ".Stacks[0].Outputs[] | select(.OutputKey==\"Route53Policy\") .OutputValue")
 CLOUDWATCH_POLICY_ARN=$(echo "${AWS_CLOUDFORMATION_DETAILS}" | jq -r ".Stacks[0].Outputs[] | select(.OutputKey==\"CloudWatchPolicy\") .OutputValue")
+AWSLOADBALANCERCONTROLLER_POLICY_ARN=$(echo "${AWS_CLOUDFORMATION_DETAILS}" | jq -r ".Stacks[0].Outputs[] | select(.OutputKey==\"AWSLoadBalancerControllerPolicy\") .OutputValue")
 ```
 
 ## Create Amazon EKS
@@ -309,7 +460,7 @@ CLOUDWATCH_POLICY_ARN=$(echo "${AWS_CLOUDFORMATION_DETAILS}" | jq -r ".Stacks[0]
 Create [Amazon EKS](https://aws.amazon.com/eks/) in AWS by using [eksctl](https://eksctl.io/).
 It's a tool from [Weaveworks](https://weave.works/) based on official
 AWS CloudFormation templates which will be used to launch and configure our
-Fargate + EKS cluster.
+Amazon EKS on AWS Fargate cluster.
 
 ![eksctl](https://raw.githubusercontent.com/weaveworks/eksctl/c365149fc1a0b8d357139cbd6cda5aee8841c16c/logo/eksctl.png
 "eksctl")
@@ -349,13 +500,30 @@ iam:
         namespace: external-dns
       attachPolicyARNs:
         - ${ROUTE53_POLICY_ARN}
+    - metadata:
+        name: aws-load-balancer-controller
+        namespace: kube-system
+      attachPolicyARNs:
+        - ${AWSLOADBALANCERCONTROLLER_POLICY_ARN}
 
 fargateProfiles:
   - name: fargate-default
     selectors:
-      - namespace: kube-system
       - namespace: default
+      - namespace: kube-system
     tags: *tags
+  # - name: fargate-cert-manager
+  #   selectors:
+  #     - namespace: cert-manager
+  #   tags: *tags
+  # - name: fargate-external-dns
+  #   selectors:
+  #     - namespace: external-dns
+  #   tags: *tags
+  # - name: fargate-kubed
+  #   selectors:
+  #     - namespace: kubed
+  #   tags: *tags
 
 cloudWatch:
   clusterLogging:
@@ -376,10 +544,10 @@ Output:
 [ℹ]  will create a CloudFormation stack for cluster itself and 0 managed nodegroup stack(s)
 [ℹ]  if you encounter any issues, check CloudFormation console or try 'eksctl utils describe-stacks --region=eu-central-1 --cluster=k2'
 [ℹ]  Kubernetes API endpoint access will use default of {publicAccess=true, privateAccess=false} for cluster "k2" in "eu-central-1"
-[ℹ]  2 sequential tasks: { create cluster control plane "k2", 2 sequential sub-tasks: { 6 sequential sub-tasks: { tag cluster, update CloudWatch logging configuration, create fargate profiles, associate IAM OIDC provider, 3 parallel sub-tasks: { 2 sequential sub-tasks: { create IAM role for serviceaccount "cert-manager/cert-manager", create serviceaccount "cert-manager/cert-manager" }, 2 sequential sub-tasks: { create IAM role for serviceaccount "external-dns/external-dns", create serviceaccount "external-dns/external-dns" }, 2 sequential sub-tasks: { create IAM role for serviceaccount "kube-system/aws-node", create serviceaccount "kube-system/aws-node" } }, restart daemonset "kube-system/aws-node" }, create addons } }
+[ℹ]  2 sequential tasks: { create cluster control plane "k2", 2 sequential sub-tasks: { 6 sequential sub-tasks: { tag cluster, update CloudWatch logging configuration, create fargate profiles, associate IAM OIDC provider, 4 parallel sub-tasks: { 2 sequential sub-tasks: { create IAM role for serviceaccount "cert-manager/cert-manager", create serviceaccount "cert-manager/cert-manager" }, 2 sequential sub-tasks: { create IAM role for serviceaccount "external-dns/external-dns", create serviceaccount "external-dns/external-dns" }, 2 sequential sub-tasks: { create IAM role for serviceaccount "kube-system/aws-load-balancer-controller", create serviceaccount "kube-system/aws-load-balancer-controller" }, 2 sequential sub-tasks: { create IAM role for serviceaccount "kube-system/aws-node", create serviceaccount "kube-system/aws-node" } }, restart daemonset "kube-system/aws-node" }, create addons } }
 [ℹ]  building cluster stack "eksctl-k2-cluster"
 [ℹ]  deploying stack "eksctl-k2-cluster"
-[✔]  tagged EKS cluster (Squad=Cloud_Container_Platform, Tribe=Cloud_Native, Environment=Dev, Owner=petr.ruzicka@gmail.com)
+[✔]  tagged EKS cluster (Environment=Dev, Owner=petr.ruzicka@gmail.com, Squad=Cloud_Container_Platform, Tribe=Cloud_Native)
 [✔]  configured CloudWatch logging for cluster "k2" in "eu-central-1" (enabled types: audit, authenticator, controllerManager & disabled types: api, scheduler)
 [ℹ]  creating Fargate profile "fargate-default" on EKS cluster "k2"
 [ℹ]  created Fargate profile "fargate-default" on EKS cluster "k2"
@@ -387,17 +555,20 @@ Output:
 [ℹ]  "coredns" is now scheduled onto Fargate
 [ℹ]  "coredns" pods are now scheduled onto Fargate
 [ℹ]  building iamserviceaccount stack "eksctl-k2-addon-iamserviceaccount-external-dns-external-dns"
-[ℹ]  building iamserviceaccount stack "eksctl-k2-addon-iamserviceaccount-cert-manager-cert-manager"
 [ℹ]  building iamserviceaccount stack "eksctl-k2-addon-iamserviceaccount-kube-system-aws-node"
-[ℹ]  deploying stack "eksctl-k2-addon-iamserviceaccount-external-dns-external-dns"
+[ℹ]  building iamserviceaccount stack "eksctl-k2-addon-iamserviceaccount-cert-manager-cert-manager"
+[ℹ]  building iamserviceaccount stack "eksctl-k2-addon-iamserviceaccount-kube-system-aws-load-balancer-controller"
+[ℹ]  deploying stack "eksctl-k2-addon-iamserviceaccount-kube-system-aws-load-balancer-controller"
 [ℹ]  deploying stack "eksctl-k2-addon-iamserviceaccount-cert-manager-cert-manager"
+[ℹ]  deploying stack "eksctl-k2-addon-iamserviceaccount-external-dns-external-dns"
 [ℹ]  deploying stack "eksctl-k2-addon-iamserviceaccount-kube-system-aws-node"
-[ℹ]  serviceaccount "kube-system/aws-node" already exists
-[ℹ]  created namespace "cert-manager"
+[ℹ]  created serviceaccount "kube-system/aws-load-balancer-controller"
 [ℹ]  created namespace "external-dns"
-[ℹ]  updated serviceaccount "kube-system/aws-node"
-[ℹ]  created serviceaccount "cert-manager/cert-manager"
 [ℹ]  created serviceaccount "external-dns/external-dns"
+[ℹ]  serviceaccount "kube-system/aws-node" already exists
+[ℹ]  updated serviceaccount "kube-system/aws-node"
+[ℹ]  created namespace "cert-manager"
+[ℹ]  created serviceaccount "cert-manager/cert-manager"
 [ℹ]  daemonset "kube-system/aws-node" restarted
 [ℹ]  waiting for the control plane availability...
 [✔]  saved kubeconfig as "/Users/ruzickap/git/k8s-fargate-eks/kubeconfig-k2.conf"
@@ -409,23 +580,190 @@ Output:
 
 Remove namespaces with serviceaccounts created by `eksctl`:
 
-```bash
-kubectl delete serviceaccount -n cert-manager cert-manager
-kubectl delete serviceaccount -n external-dns external-dns
+```shell
+kubectl delete serviceaccount -n kube-system cert-manager
+kubectl delete serviceaccount -n kube-system external-dns
 ```
 
 Check the nodes:
 
 ```bash
-kubectl get nodes -o wide
+kubectl describe nodes
 ```
 
 Output:
 
 ```text
-NAME                                                       STATUS   ROLES    AGE   VERSION              INTERNAL-IP       EXTERNAL-IP   OS-IMAGE         KERNEL-VERSION                  CONTAINER-RUNTIME
-fargate-ip-192-168-112-249.eu-central-1.compute.internal   Ready    <none>   67s   v1.18.8-eks-7c9bda   192.168.112.249   <none>        Amazon Linux 2   4.14.209-160.335.amzn2.x86_64   containerd://1.3.2
-fargate-ip-192-168-74-240.eu-central-1.compute.internal    Ready    <none>   69s   v1.18.8-eks-7c9bda   192.168.74.240    <none>        Amazon Linux 2   4.14.209-160.335.amzn2.x86_64   containerd://1.3.2
+Name:               fargate-ip-192-168-105-82.eu-central-1.compute.internal
+Roles:              <none>
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    eks.amazonaws.com/compute-type=fargate
+                    failure-domain.beta.kubernetes.io/region=eu-central-1
+                    failure-domain.beta.kubernetes.io/zone=eu-central-1b
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=ip-192-168-105-82.eu-central-1.compute.internal
+                    kubernetes.io/os=linux
+                    topology.kubernetes.io/region=eu-central-1
+                    topology.kubernetes.io/zone=eu-central-1b
+Annotations:        node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Sat, 02 Jan 2021 11:13:17 +0100
+Taints:             eks.amazonaws.com/compute-type=fargate:NoSchedule
+Unschedulable:      false
+Lease:
+  HolderIdentity:  fargate-ip-192-168-105-82.eu-central-1.compute.internal
+  AcquireTime:     <unset>
+  RenewTime:       Sat, 02 Jan 2021 11:15:17 +0100
+Conditions:
+  Type             Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----             ------  -----------------                 ------------------                ------                       -------
+  MemoryPressure   False   Sat, 02 Jan 2021 11:13:47 +0100   Sat, 02 Jan 2021 11:13:17 +0100   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure     False   Sat, 02 Jan 2021 11:13:47 +0100   Sat, 02 Jan 2021 11:13:17 +0100   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure      False   Sat, 02 Jan 2021 11:13:47 +0100   Sat, 02 Jan 2021 11:13:17 +0100   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready            True    Sat, 02 Jan 2021 11:13:47 +0100   Sat, 02 Jan 2021 11:13:27 +0100   KubeletReady                 kubelet is posting ready status
+Addresses:
+  InternalIP:   192.168.105.82
+  InternalDNS:  ip-192-168-105-82.eu-central-1.compute.internal
+  Hostname:     ip-192-168-105-82.eu-central-1.compute.internal
+Capacity:
+  attachable-volumes-aws-ebs:  39
+  cpu:                         2
+  ephemeral-storage:           30832548Ki
+  hugepages-1Gi:               0
+  hugepages-2Mi:               0
+  memory:                      15649708Ki
+  pods:                        1
+Allocatable:
+  attachable-volumes-aws-ebs:  39
+  cpu:                         2
+  ephemeral-storage:           28415276190
+  hugepages-1Gi:               0
+  hugepages-2Mi:               0
+  memory:                      15547308Ki
+  pods:                        1
+System Info:
+  Machine ID:
+  System UUID:                EC2C7130-59B9-D75C-F44C-2CCFAD69C864
+  Boot ID:                    e2e285fa-b723-4c1c-84c2-10c680f0c0d3
+  Kernel Version:             4.14.209-160.335.amzn2.x86_64
+  OS Image:                   Amazon Linux 2
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  containerd://1.3.2
+  Kubelet Version:            v1.18.8-eks-7c9bda
+  Kube-Proxy Version:         v1.18.8-eks-7c9bda
+ProviderID:                   aws:///eu-central-1b/7b1974769e-0d7cb3f0582c4079908372a2c1d80b16/fargate-ip-192-168-105-82.eu-central-1.compute.internal
+Non-terminated Pods:          (1 in total)
+  Namespace                   Name                        CPU Requests  CPU Limits  Memory Requests  Memory Limits  AGE
+  ---------                   ----                        ------------  ----------  ---------------  -------------  ---
+  kube-system                 coredns-7c5b55f765-kx2sr    100m (5%)     0 (0%)      70Mi (0%)        170Mi (1%)     2m52s
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource                    Requests   Limits
+  --------                    --------   ------
+  cpu                         100m (5%)  0 (0%)
+  memory                      70Mi (0%)  170Mi (1%)
+  ephemeral-storage           0 (0%)     0 (0%)
+  hugepages-1Gi               0 (0%)     0 (0%)
+  hugepages-2Mi               0 (0%)     0 (0%)
+  attachable-volumes-aws-ebs  0          0
+Events:
+  Type     Reason                   Age                  From     Message
+  ----     ------                   ----                 ----     -------
+  Normal   Starting                 2m1s                 kubelet  Starting kubelet.
+  Warning  InvalidDiskCapacity      2m1s                 kubelet  invalid capacity 0 on image filesystem
+  Normal   NodeHasSufficientMemory  2m1s (x2 over 2m1s)  kubelet  Node fargate-ip-192-168-105-82.eu-central-1.compute.internal status is now: NodeHasSufficientMemory
+  Normal   NodeHasNoDiskPressure    2m1s (x2 over 2m1s)  kubelet  Node fargate-ip-192-168-105-82.eu-central-1.compute.internal status is now: NodeHasNoDiskPressure
+  Normal   NodeHasSufficientPID     2m1s (x2 over 2m1s)  kubelet  Node fargate-ip-192-168-105-82.eu-central-1.compute.internal status is now: NodeHasSufficientPID
+  Normal   NodeAllocatableEnforced  2m1s                 kubelet  Updated Node Allocatable limit across pods
+  Normal   NodeReady                111s                 kubelet  Node fargate-ip-192-168-105-82.eu-central-1.compute.internal status is now: NodeReady
+
+
+Name:               fargate-ip-192-168-124-70.eu-central-1.compute.internal
+Roles:              <none>
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    eks.amazonaws.com/compute-type=fargate
+                    failure-domain.beta.kubernetes.io/region=eu-central-1
+                    failure-domain.beta.kubernetes.io/zone=eu-central-1b
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=ip-192-168-124-70.eu-central-1.compute.internal
+                    kubernetes.io/os=linux
+                    topology.kubernetes.io/region=eu-central-1
+                    topology.kubernetes.io/zone=eu-central-1b
+Annotations:        node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Sat, 02 Jan 2021 11:13:07 +0100
+Taints:             eks.amazonaws.com/compute-type=fargate:NoSchedule
+Unschedulable:      false
+Lease:
+  HolderIdentity:  fargate-ip-192-168-124-70.eu-central-1.compute.internal
+  AcquireTime:     <unset>
+  RenewTime:       Sat, 02 Jan 2021 11:15:17 +0100
+Conditions:
+  Type             Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----             ------  -----------------                 ------------------                ------                       -------
+  MemoryPressure   False   Sat, 02 Jan 2021 11:13:37 +0100   Sat, 02 Jan 2021 11:13:05 +0100   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure     False   Sat, 02 Jan 2021 11:13:37 +0100   Sat, 02 Jan 2021 11:13:05 +0100   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure      False   Sat, 02 Jan 2021 11:13:37 +0100   Sat, 02 Jan 2021 11:13:05 +0100   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready            True    Sat, 02 Jan 2021 11:13:37 +0100   Sat, 02 Jan 2021 11:13:17 +0100   KubeletReady                 kubelet is posting ready status
+Addresses:
+  InternalIP:   192.168.124.70
+  InternalDNS:  ip-192-168-124-70.eu-central-1.compute.internal
+  Hostname:     ip-192-168-124-70.eu-central-1.compute.internal
+Capacity:
+  attachable-volumes-aws-ebs:  39
+  cpu:                         2
+  ephemeral-storage:           30832548Ki
+  hugepages-1Gi:               0
+  hugepages-2Mi:               0
+  memory:                      15649708Ki
+  pods:                        1
+Allocatable:
+  attachable-volumes-aws-ebs:  39
+  cpu:                         2
+  ephemeral-storage:           28415276190
+  hugepages-1Gi:               0
+  hugepages-2Mi:               0
+  memory:                      15547308Ki
+  pods:                        1
+System Info:
+  Machine ID:
+  System UUID:                EC22AB0C-4298-1C2A-14A2-F8A5D6E468AC
+  Boot ID:                    af1a037c-80a3-4bfa-a8bb-265e8f4c8a75
+  Kernel Version:             4.14.209-160.335.amzn2.x86_64
+  OS Image:                   Amazon Linux 2
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  containerd://1.3.2
+  Kubelet Version:            v1.18.8-eks-7c9bda
+  Kube-Proxy Version:         v1.18.8-eks-7c9bda
+ProviderID:                   aws:///eu-central-1b/7b1974769e-d83c17722dfc47ada789fa9fed2a89b4/fargate-ip-192-168-124-70.eu-central-1.compute.internal
+Non-terminated Pods:          (1 in total)
+  Namespace                   Name                        CPU Requests  CPU Limits  Memory Requests  Memory Limits  AGE
+  ---------                   ----                        ------------  ----------  ---------------  -------------  ---
+  kube-system                 coredns-7c5b55f765-dwzb8    100m (5%)     0 (0%)      70Mi (0%)        170Mi (1%)     2m52s
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource                    Requests   Limits
+  --------                    --------   ------
+  cpu                         100m (5%)  0 (0%)
+  memory                      70Mi (0%)  170Mi (1%)
+  ephemeral-storage           0 (0%)     0 (0%)
+  hugepages-1Gi               0 (0%)     0 (0%)
+  hugepages-2Mi               0 (0%)     0 (0%)
+  attachable-volumes-aws-ebs  0          0
+Events:
+  Type     Reason                   Age                    From     Message
+  ----     ------                   ----                   ----     -------
+  Normal   Starting                 2m13s                  kubelet  Starting kubelet.
+  Warning  InvalidDiskCapacity      2m13s                  kubelet  invalid capacity 0 on image filesystem
+  Normal   NodeHasSufficientMemory  2m13s (x2 over 2m13s)  kubelet  Node fargate-ip-192-168-124-70.eu-central-1.compute.internal status is now: NodeHasSufficientMemory
+  Normal   NodeHasNoDiskPressure    2m13s (x2 over 2m13s)  kubelet  Node fargate-ip-192-168-124-70.eu-central-1.compute.internal status is now: NodeHasNoDiskPressure
+  Normal   NodeHasSufficientPID     2m13s (x2 over 2m13s)  kubelet  Node fargate-ip-192-168-124-70.eu-central-1.compute.internal status is now: NodeHasSufficientPID
+  Normal   NodeAllocatableEnforced  2m13s                  kubelet  Updated Node Allocatable limit across pods
+  Normal   NodeReady                2m1s                   kubelet  Node fargate-ip-192-168-124-70.eu-central-1.compute.internal status is now: NodeReady
 ```
 
 Check the pods:
@@ -438,9 +776,13 @@ Output:
 
 ```text
 NAMESPACE     NAME                       READY   STATUS    RESTARTS   AGE
-kube-system   coredns-7c5b55f765-dlb4k   1/1     Running   0          10m
-kube-system   coredns-7c5b55f765-t8x7v   1/1     Running   0          10m
+kube-system   coredns-7c5b55f765-dwzb8   1/1     Running   0          2m52s
+kube-system   coredns-7c5b55f765-kx2sr   1/1     Running   0          2m52s
 ```
+
+::: warning
+In case of Amazon EKS on AWS Fargate every pod is running on single node.
+:::
 
 Attach the policy to the [pod execution role](https://docs.aws.amazon.com/eks/latest/userguide/pod-execution-role.html)
 of your EKS on Fargate cluster:
@@ -477,3 +819,5 @@ data:
         auto_create_group On
 EOF
 ```
+
+All the Fargate pods should now send the log to CloudWatch...
