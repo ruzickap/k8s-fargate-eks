@@ -18,8 +18,8 @@ Detach policy from IAM role:
 ```bash
 AWS_CLOUDFORMATION_DETAILS=$(aws cloudformation describe-stacks --stack-name "${CLUSTER_NAME}-route53-cloudwatch")
 CLOUDWATCH_POLICY_ARN=$(echo "${AWS_CLOUDFORMATION_DETAILS}" | jq -r ".Stacks[0].Outputs[] | select(.OutputKey==\"CloudWatchPolicy\") .OutputValue")
-CLUSTER_ARN=$(eksctl get iamidentitymapping --region=${AWS_DEFAULT_REGION} --cluster=${CLUSTER_NAME} -o json | jq -r ".[].rolearn")
-aws iam detach-role-policy --policy-arn "${CLOUDWATCH_POLICY_ARN}" --role-name "${CLUSTER_ARN#*/}"
+CLUSTER_ARN=$(eksctl get iamidentitymapping --cluster=${CLUSTER_NAME} -o json | jq -r ".[].rolearn")
+[[ -n "${CLUSTER_ARN}" ]] && aws iam detach-role-policy --policy-arn "${CLOUDWATCH_POLICY_ARN}" --role-name "${CLUSTER_ARN#*/}"
 ```
 
 Remove EKS cluster:
@@ -89,6 +89,7 @@ Wait for CloudFormation to be deleted:
 
 ```bash
 aws cloudformation wait stack-delete-complete --stack-name "${CLUSTER_NAME}-route53-cloudwatch"
+aws cloudformation wait stack-delete-complete --stack-name "eksctl-${CLUSTER_NAME}-cluster"
 ```
 
 Cleanup completed:
