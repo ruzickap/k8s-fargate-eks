@@ -38,12 +38,12 @@ echo -e "${MY_EMAIL} | ${LETSENCRYPT_ENVIRONMENT} | ${CLUSTER_NAME} | ${BASE_DOM
 
 Prepare GitHub OAuth "access" credentials ans AWS "access" variables.
 
-You will need to configure AWS CLI: [https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
+You will need to configure AWS CLI: [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
 
 ```shell
 # AWS Credentials
-export AWS_ACCESS_KEY_ID="AxxxxxxxxxxxxxxxxxxY"
-export AWS_SECRET_ACCESS_KEY="txxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxh"
+export AWS_ACCESS_KEY_ID=""
+export AWS_SECRET_ACCESS_KEY=""
 ```
 
 ## Prepare the local working environment

@@ -6,7 +6,7 @@ certificate management ([cert-manager](https://cert-manager.io/)), ...
 
 ## aws-load-balancer-controller
 
-Get the VPC Id where is the cluster:
+Get the VPC ID where is the cluster:
 
 ```bash
 EKS_VPC_ID=$(aws eks describe-cluster --name "${CLUSTER_NAME}" --query "cluster.resourcesVpcConfig.vpcId" --output text)
