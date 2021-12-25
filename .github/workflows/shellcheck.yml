@@ -23,13 +23,16 @@ jobs:
 
       - name: Extract commands from markdown files
         run: |
+          set -eux
           echo '#!/usr/bin/env bash' > README.sh
-          sed -n "/^\`\`\`\(bash\|shell\).*/,/^\`\`\`$/p" docs/part-0*/README.md \
-          | \
-          sed \
-            -e 's/^```\(bash\|shell\).*/\n/' \
-            -e 's/^```$//' \
-          >> README.sh
+          find . -name '*.md' -print0 | while IFS= read -r -d '' FILE ; do
+            sed -n "/^\`\`\`\(bash\|shell\).*/,/^\`\`\`$/p" "${FILE}" \
+            | \
+            sed \
+              -e 's/^```\(bash\|shell\).*/\n/' \
+              -e 's/^```$//' \
+            >> README.sh
+          done
 
       - name: Lint check
         uses: azohra/shell-linter@v0.4.0
