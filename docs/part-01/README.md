@@ -458,7 +458,7 @@ AWSLOADBALANCERCONTROLLER_POLICY_ARN=$(echo "${AWS_CLOUDFORMATION_DETAILS}" | jq
 "EKS")
 
 Create [Amazon EKS](https://aws.amazon.com/eks/) in AWS by using [eksctl](https://eksctl.io/).
-It's a tool from [Weaveworks](https://weave.works/) based on official
+It's a tool from [Weaveworks](https://www.weave.works/) based on official
 AWS CloudFormation templates which will be used to launch and configure our
 Amazon EKS on AWS Fargate cluster.
 
