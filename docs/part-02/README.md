@@ -58,7 +58,7 @@ and modify the
 The the previously created Role ARN will be used to annotate service account.
 
 ```shell
-ROUTE53_ROLE_ARN_CERT_MANAGER=$(eksctl get iamserviceaccount --cluster=${CLUSTER_NAME} --namespace cert-manager -o json  | jq -r ".iam.serviceAccounts[] | select(.metadata.name==\"cert-manager\") .status.roleARN")
+ROUTE53_ROLE_ARN_CERT_MANAGER=$(eksctl get iamserviceaccount --cluster="${CLUSTER_NAME}" --namespace cert-manager -o json  | jq -r ".iam.serviceAccounts[] | select(.metadata.name==\"cert-manager\") .status.roleARN")
 
 helm repo add jetstack https://charts.jetstack.io
 helm install --version v1.1.0 --namespace cert-manager --create-namespace --wait --values - cert-manager jetstack/cert-manager << EOF
@@ -162,7 +162,7 @@ and modify the
 (`ROUTE53_ROLE_ARN` variable was defined before for `cert-manager`)
 
 ```shell
-ROUTE53_ROLE_ARN_EXTERNAL_DNS=$(eksctl get iamserviceaccount --cluster=${CLUSTER_NAME} --namespace kube-system -o json  | jq -r ".iam.serviceAccounts[] | select(.metadata.name==\"external-dns\") .status.roleARN")
+ROUTE53_ROLE_ARN_EXTERNAL_DNS=$(eksctl get iamserviceaccount --cluster="${CLUSTER_NAME}" --namespace kube-system -o json  | jq -r ".iam.serviceAccounts[] | select(.metadata.name==\"external-dns\") .status.roleARN")
 ```
 
 ```shell
@@ -204,7 +204,7 @@ See the details:
 Install `kubed`
 [helm chart](https://artifacthub.io/packages/helm/appscode/kubed)
 and modify the
-[default values](https://github.com/appscode/kubed/blob/master/charts/kubed/values.yaml).
+[default values](https://github.com/kubeops/config-syncer/blob/2310687a9ee63ba22ef272cbaaef8f7f89314183/charts/kubed/values.yaml).
 
 ```shell
 helm repo add appscode https://charts.appscode.com/stable/

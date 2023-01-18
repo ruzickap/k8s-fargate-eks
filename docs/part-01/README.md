@@ -788,7 +788,7 @@ Attach the policy to the [pod execution role](https://docs.aws.amazon.com/eks/la
 of your EKS on Fargate cluster:
 
 ```bash
-CLUSTER_ARN=$(eksctl get iamidentitymapping --cluster=${CLUSTER_NAME} -o json | jq -r ".[].rolearn")
+CLUSTER_ARN=$(eksctl get iamidentitymapping --cluster="${CLUSTER_NAME}" -o json | jq -r ".[].rolearn")
 aws iam attach-role-policy --policy-arn "${CLOUDWATCH_POLICY_ARN}" --role-name "${CLUSTER_ARN#*/}"
 ```
 
