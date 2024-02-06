@@ -1,6 +1,6 @@
 # AWS Fargate with Amazon EKS
 
-[![Build Status](https://github.com/ruzickap/k8s-fargate-eks/workflows/vuepress-build-check-deploy/badge.svg)](https://github.com/ruzickap/k8s-fargate-eks)
+[![Build Status](https://github.com/ruzickap/k8s-fargate-eks/workflows/vuepress-build/badge.svg)](https://github.com/ruzickap/k8s-fargate-eks)
 
 * Demo GitHub repository: [https://github.com/ruzickap/k8s-fargate-eks](https://github.com/ruzickap/k8s-fargate-eks)
 * Demo Web Pages: [https://ruzickap.github.io/k8s-fargate-eks](https://ruzickap.github.io/k8s-fargate-eks)
