@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>K8s tools | AWS Fargate with Amazon EKS</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="https://raw.githubusercontent.com/kubernetes/kubernetes/d9a58a39b69a0eaec5797e0f7a0f9472b4829ab0/logo/logo.svg">
+    <meta name="description" content="AWS Fargate with Amazon EKS">
+    
+    <link rel="preload" href="/k8s-fargate-eks/assets/css/0.styles.9486070e.css" as="style"><link rel="preload" href="/k8s-fargate-eks/assets/js/app.98b2ebc6.js" as="script"><link rel="preload" href="/k8s-fargate-eks/assets/js/2.a27de003.js" as="script"><link rel="preload" href="/k8s-fargate-eks/assets/js/1.30a6593f.js" as="script"><link rel="preload" href="/k8s-fargate-eks/assets/js/24.65d86872.js" as="script"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/10.340b7a91.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/11.6724c971.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/12.0f6b2c7f.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/13.0f6f4ef5.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/14.28b41666.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/15.d3972987.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/16.4c24402c.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/17.6cd3a12a.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/18.8d7e6487.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/19.78b16bd4.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/20.a3f134b4.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/21.3fb0cd72.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/22.4c1dbdec.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/23.ca52321a.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/25.f9efbddf.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/26.bbad3055.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/3.6b4152e0.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/4.bea5e217.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/5.ac8fedb2.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/6.76ff54c2.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/7.98538131.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/vendors~docsearch.d098b00c.js">
+    <link rel="stylesheet" href="/k8s-fargate-eks/assets/css/0.styles.9486070e.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/k8s-fargate-eks/" class="home-link router-link-active"><img src="https://raw.githubusercontent.com/kubernetes/kubernetes/d9a58a39b69a0eaec5797e0f7a0f9472b4829ab0/logo/logo.svg" alt="AWS Fargate with Amazon EKS" class="logo"> <span class="site-name can-hide">AWS Fargate with Amazon EKS</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/k8s-fargate-eks/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Links" class="dropdown-title"><span class="title">Links</span> <span class="arrow down"></span></button> <button type="button" aria-label="Links" class="mobile-dropdown-title"><span class="title">Links</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://aws.amazon.com/eks/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Amazon EKS
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://aws.amazon.com/fargate/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Amazon Fargate
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/ruzickap/k8s-fargate-eks" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/k8s-fargate-eks/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Links" class="dropdown-title"><span class="title">Links</span> <span class="arrow down"></span></button> <button type="button" aria-label="Links" class="mobile-dropdown-title"><span class="title">Links</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://aws.amazon.com/eks/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Amazon EKS
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://aws.amazon.com/fargate/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Amazon Fargate
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/ruzickap/k8s-fargate-eks" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/k8s-fargate-eks/" aria-current="page" class="sidebar-link">AWS Fargate with Amazon EKS</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/#requirements" class="sidebar-link">Requirements</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/#content" class="sidebar-link">Content</a></li></ul></li><li><a href="/k8s-fargate-eks/part-01/" class="sidebar-link">Amazon EKS on AWS Fargate</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-01/#requirements" class="sidebar-link">Requirements</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-01/#prepare-the-local-working-environment" class="sidebar-link">Prepare the local working environment</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-01/#configure-aws-route-53-domain-delegation" class="sidebar-link">Configure AWS Route 53 Domain delegation</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-01/#add-new-domain-to-route-53-and-policies" class="sidebar-link">Add new domain to Route 53 and Policies</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-01/#create-amazon-eks" class="sidebar-link">Create Amazon EKS</a></li></ul></li><li><a href="/k8s-fargate-eks/part-02/" aria-current="page" class="active sidebar-link">K8s tools</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-02/#aws-load-balancer-controller" class="sidebar-link">aws-load-balancer-controller</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-02/#cert-manager" class="sidebar-link">cert-manager</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-02/#external-dns" class="sidebar-link">external-dns</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-02/#kubed" class="sidebar-link">kubed</a></li></ul></li><li><a href="/k8s-fargate-eks/part-03/" class="sidebar-link">Workload</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-03/#podinfo" class="sidebar-link">podinfo</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-03/#kuard" class="sidebar-link">kuard</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-03/#octant" class="sidebar-link">Octant</a></li></ul></li><li><a href="/k8s-fargate-eks/part-04/" class="sidebar-link">Clean-up</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="k8s-tools"><a href="#k8s-tools" class="header-anchor">#</a> K8s tools</h1> <p>Install the basic tools, before running some applications like DNS integration
+(<a href="https://github.com/kubernetes-sigs/external-dns" target="_blank" rel="noopener noreferrer">external-dns<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>), Ingress (<a href="https://kubernetes.github.io/ingress-nginx/" target="_blank" rel="noopener noreferrer">ingress-nginx<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>),
+certificate management (<a href="https://cert-manager.io/" target="_blank" rel="noopener noreferrer">cert-manager<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>), ...</p> <h2 id="aws-load-balancer-controller"><a href="#aws-load-balancer-controller" class="header-anchor">#</a> aws-load-balancer-controller</h2> <p>Get the VPC ID where is the cluster:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token assign-left variable">EKS_VPC_ID</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>aws eks describe-cluster <span class="token parameter variable">--name</span> <span class="token string">&quot;<span class="token variable">${CLUSTER_NAME}</span>&quot;</span> <span class="token parameter variable">--query</span> <span class="token string">&quot;cluster.resourcesVpcConfig.vpcId&quot;</span> <span class="token parameter variable">--output</span> text<span class="token variable">)</span></span>
+</code></pre></div><p>Install <code>aws-load-balancer-controller</code> <a href="https://artifacthub.io/packages/helm/aws/aws-load-balancer-controller" target="_blank" rel="noopener noreferrer">helm chart<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>
+and modify the
+<a href="https://github.com/aws/eks-charts/blob/master/stable/aws-load-balancer-controller/values.yaml" target="_blank" rel="noopener noreferrer">default values<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>.</p> <div class="language-bash extra-class"><pre class="language-bash"><code>helm repo <span class="token function">add</span> eks https://aws.github.io/eks-charts
+helm <span class="token function">install</span> <span class="token parameter variable">--version</span> <span class="token number">1.1</span>.1 <span class="token parameter variable">--namespace</span> kube-system <span class="token parameter variable">--values</span> - aws-load-balancer-controller eks/aws-load-balancer-controller <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+clusterName: <span class="token variable">${CLUSTER_NAME}</span>
+serviceAccount:
+  create: false
+  name: aws-load-balancer-controller
+region: <span class="token variable">${AWS_DEFAULT_REGION}</span>
+vpcId: <span class="token variable">${EKS_VPC_ID}</span>
+defaultTags:
+  <span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> <span class="token string">&quot;<span class="token variable">$TAGS</span>&quot;</span> <span class="token operator">|</span> <span class="token function">sed</span> <span class="token string">&quot;s/ /<span class="token entity" title="\n">\n</span>  /g;s/=/: /g&quot;</span><span class="token variable">)</span></span>
+EOF</span>
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>&quot;eks&quot; has been added to your repositories
+NAME: aws-load-balancer-controller
+LAST DEPLOYED: Sat Jan  2 11:15:29 2021
+NAMESPACE: kube-system
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+AWS Load Balancer controller installed!
+</code></pre></div><h2 id="cert-manager"><a href="#cert-manager" class="header-anchor">#</a> cert-manager</h2> <div class="custom-block warning"><p class="custom-block-title">WARNING</p> <p>This is not working due to Fargate specifics <a href="https://github.com/jetstack/cert-manager/issues/3237" target="_blank" rel="noopener noreferrer">https://github.com/jetstack/cert-manager/issues/3237<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></div> <p>Install <code>cert-manager</code> <a href="https://artifacthub.io/packages/helm/jetstack/cert-manager" target="_blank" rel="noopener noreferrer">helm chart<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>
+and modify the
+<a href="https://github.com/jetstack/cert-manager/blob/master/deploy/charts/cert-manager/values.yaml" target="_blank" rel="noopener noreferrer">default values<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>.
+The the previously created Role ARN will be used to annotate service account.</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token assign-left variable">ROUTE53_ROLE_ARN_CERT_MANAGER</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>eksctl get iamserviceaccount <span class="token parameter variable">--cluster</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable">${CLUSTER_NAME}</span>&quot;</span> <span class="token parameter variable">--namespace</span> cert-manager <span class="token parameter variable">-o</span> json  <span class="token operator">|</span> jq <span class="token parameter variable">-r</span> <span class="token string">&quot;.iam.serviceAccounts[] | select(.metadata.name==<span class="token entity" title="\&quot;">\&quot;</span>cert-manager<span class="token entity" title="\&quot;">\&quot;</span>) .status.roleARN&quot;</span><span class="token variable">)</span></span>
+
+helm repo <span class="token function">add</span> jetstack https://charts.jetstack.io
+helm <span class="token function">install</span> <span class="token parameter variable">--version</span> v1.1.0 <span class="token parameter variable">--namespace</span> cert-manager --create-namespace <span class="token parameter variable">--wait</span> <span class="token parameter variable">--values</span> - cert-manager jetstack/cert-manager <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+installCRDs: true
+image:
+  pullPolicy: Always
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: <span class="token variable">${ROUTE53_ROLE_ARN_CERT_MANAGER}</span>
+extraArgs:
+  - --enable-certificate-owner-ref=true
+securityContext:
+  enabled: true
+EOF</span>
+</code></pre></div><p>Add ClusterIssuers for Let's Encrypt staging and production:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>kubectl apply <span class="token parameter variable">-f</span> - <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging-dns
+  namespace: cert-manager
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: <span class="token variable">${MY_EMAIL}</span>
+    privateKeySecretRef:
+      name: letsencrypt-staging-dns
+    solvers:
+      - selector:
+          dnsZones:
+            - <span class="token variable">${CLUSTER_FQDN}</span>
+        dns01:
+          route53:
+            region: <span class="token variable">${AWS_DEFAULT_REGION}</span>
+---
+# Create ClusterIssuer for production to get real signed certificates
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production-dns
+  namespace: cert-manager
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: <span class="token variable">${MY_EMAIL}</span>
+    privateKeySecretRef:
+      name: letsencrypt-production-dns
+    solvers:
+      - selector:
+          dnsZones:
+            - <span class="token variable">${CLUSTER_FQDN}</span>
+        dns01:
+          route53:
+            region: <span class="token variable">${AWS_DEFAULT_REGION}</span>
+EOF</span>
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>Error from server (InternalError): error when creating &quot;STDIN&quot;: Internal error occurred: failed calling webhook &quot;webhook.cert-manager.io&quot;: Post https://cert-manager-webhook.cert-manager.svc:443/mutate?timeout=10s: x509: certificate is valid for ip-192-168-92-45.eu-central-1.compute.internal, not cert-manager-webhook.cert-manager.svc
+Error from server (InternalError): error when creating &quot;STDIN&quot;: Internal error occurred: failed calling webhook &quot;webhook.cert-manager.io&quot;: Post https://cert-manager-webhook.cert-manager.svc:443/mutate?timeout=10s: x509: certificate is valid for ip-192-168-92-45.eu-central-1.compute.internal, not cert-manager-webhook.cert-manager.svc
+</code></pre></div><p>Create wildcard certificate using <code>cert-manager</code>:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>kubectl apply <span class="token parameter variable">-f</span> - <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ingress-cert-<span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span>
+  namespace: cert-manager
+spec:
+  secretName: ingress-cert-<span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span>
+  issuerRef:
+    name: letsencrypt-<span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span>-dns
+    kind: ClusterIssuer
+  commonName: &quot;*.<span class="token variable">${CLUSTER_FQDN}</span>&quot;
+  dnsNames:
+    - &quot;*.<span class="token variable">${CLUSTER_FQDN}</span>&quot;
+    - &quot;<span class="token variable">${CLUSTER_FQDN}</span>&quot;
+EOF</span>
+</code></pre></div><h2 id="external-dns"><a href="#external-dns" class="header-anchor">#</a> external-dns</h2> <div class="custom-block warning"><p class="custom-block-title">WARNING</p> <p>This is not working - not sure why...</p></div> <p>Install <code>external-dns</code> <a href="https://artifacthub.io/packages/helm/bitnami/external-dns" target="_blank" rel="noopener noreferrer">helm chart<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>
+and modify the
+<a href="https://github.com/bitnami/charts/blob/master/bitnami/external-dns/values.yaml" target="_blank" rel="noopener noreferrer">default values<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>.
+<code>external-dns</code> will take care about DNS records.
+(<code>ROUTE53_ROLE_ARN</code> variable was defined before for <code>cert-manager</code>)</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token assign-left variable">ROUTE53_ROLE_ARN_EXTERNAL_DNS</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>eksctl get iamserviceaccount <span class="token parameter variable">--cluster</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable">${CLUSTER_NAME}</span>&quot;</span> <span class="token parameter variable">--namespace</span> kube-system <span class="token parameter variable">-o</span> json  <span class="token operator">|</span> jq <span class="token parameter variable">-r</span> <span class="token string">&quot;.iam.serviceAccounts[] | select(.metadata.name==<span class="token entity" title="\&quot;">\&quot;</span>external-dns<span class="token entity" title="\&quot;">\&quot;</span>) .status.roleARN&quot;</span><span class="token variable">)</span></span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code>helm repo <span class="token function">add</span> bitnami https://charts.bitnami.com/bitnami
+helm <span class="token function">install</span> <span class="token parameter variable">--version</span> <span class="token number">4.4</span>.1 <span class="token parameter variable">--namespace</span> external-dns --create-namespace <span class="token parameter variable">--values</span> - external-dns bitnami/external-dns <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+aws:
+  region: <span class="token variable">${AWS_DEFAULT_REGION}</span>
+domainFilters:
+  - <span class="token variable">${CLUSTER_FQDN}</span>
+interval: 10s
+policy: sync
+replicas: 1
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: <span class="token variable">${ROUTE53_ROLE_ARN_EXTERNAL_DNS}</span>
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop: [&quot;ALL&quot;]
+  runAsNonRoot: true
+EOF</span>
+</code></pre></div><h2 id="kubed"><a href="#kubed" class="header-anchor">#</a> kubed</h2> <div class="custom-block warning"><p class="custom-block-title">WARNING</p> <p>This is not working due to Fargate specifics <a href="https://github.com/jetstack/cert-manager/issues/3237" target="_blank" rel="noopener noreferrer">https://github.com/jetstack/cert-manager/issues/3237<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></div> <p><code>kubed</code> - tool which helps with copying the certificate secretes across the
+namespaces.</p> <p>See the details:</p> <ul><li><a href="https://cert-manager.io/docs/faq/kubed/" target="_blank" rel="noopener noreferrer">https://cert-manager.io/docs/faq/kubed/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://appscode.com/products/kubed/v0.12.0/guides/config-syncer/intra-cluster/" target="_blank" rel="noopener noreferrer">https://appscode.com/products/kubed/v0.12.0/guides/config-syncer/intra-cluster/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul> <p>Install <code>kubed</code> <a href="https://artifacthub.io/packages/helm/appscode/kubed" target="_blank" rel="noopener noreferrer">helm chart<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>
+and modify the
+<a href="https://github.com/kubeops/config-syncer/blob/2310687a9ee63ba22ef272cbaaef8f7f89314183/charts/kubed/values.yaml" target="_blank" rel="noopener noreferrer">default values<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>.</p> <div class="language-shell extra-class"><pre class="language-shell"><code>helm repo <span class="token function">add</span> appscode https://charts.appscode.com/stable/
+helm <span class="token function">install</span> <span class="token parameter variable">--version</span> v0.12.0 <span class="token parameter variable">--namespace</span> kubed --create-namespace <span class="token parameter variable">--values</span> - kubed appscode/kubed <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+imagePullPolicy: Always
+config:
+  clusterName: <span class="token variable">${CLUSTER_FQDN}</span>
+EOF</span>
+</code></pre></div><p>Annotate the wildcard certificate secret. It will allow <code>kubed</code> to distribute
+it to all namespaces.</p> <div class="language-shell extra-class"><pre class="language-shell"><code>kubectl <span class="token function">wait</span> <span class="token parameter variable">--timeout</span><span class="token operator">=</span>5m <span class="token parameter variable">--namespace</span> cert-manager <span class="token parameter variable">--for</span><span class="token operator">=</span>condition<span class="token operator">=</span>Ready certificate <span class="token string">&quot;ingress-cert-<span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span>&quot;</span>
+kubectl annotate secret <span class="token string">&quot;ingress-cert-<span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span>&quot;</span> <span class="token parameter variable">-n</span> cert-manager kubed.appscode.com/sync<span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+</code></pre></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ruzickap/k8s-fargate-eks/edit/master/docs/part-02/README.md" target="_blank" rel="noopener noreferrer">Edit this page</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">6/30/2024, 4:09:44 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/k8s-fargate-eks/part-01/" class="prev">
+        Amazon EKS on AWS Fargate
+      </a></span> <span class="next"><a href="/k8s-fargate-eks/part-03/">
+        Workload
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/k8s-fargate-eks/assets/js/app.98b2ebc6.js" defer></script><script src="/k8s-fargate-eks/assets/js/2.a27de003.js" defer></script><script src="/k8s-fargate-eks/assets/js/1.30a6593f.js" defer></script><script src="/k8s-fargate-eks/assets/js/24.65d86872.js" defer></script>
+  </body>
+</html>

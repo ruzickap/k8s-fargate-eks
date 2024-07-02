@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Workload | AWS Fargate with Amazon EKS</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="https://raw.githubusercontent.com/kubernetes/kubernetes/d9a58a39b69a0eaec5797e0f7a0f9472b4829ab0/logo/logo.svg">
+    <meta name="description" content="AWS Fargate with Amazon EKS">
+    
+    <link rel="preload" href="/k8s-fargate-eks/assets/css/0.styles.9486070e.css" as="style"><link rel="preload" href="/k8s-fargate-eks/assets/js/app.98b2ebc6.js" as="script"><link rel="preload" href="/k8s-fargate-eks/assets/js/2.a27de003.js" as="script"><link rel="preload" href="/k8s-fargate-eks/assets/js/1.30a6593f.js" as="script"><link rel="preload" href="/k8s-fargate-eks/assets/js/25.f9efbddf.js" as="script"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/10.340b7a91.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/11.6724c971.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/12.0f6b2c7f.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/13.0f6f4ef5.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/14.28b41666.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/15.d3972987.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/16.4c24402c.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/17.6cd3a12a.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/18.8d7e6487.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/19.78b16bd4.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/20.a3f134b4.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/21.3fb0cd72.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/22.4c1dbdec.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/23.ca52321a.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/24.65d86872.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/26.bbad3055.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/3.6b4152e0.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/4.bea5e217.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/5.ac8fedb2.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/6.76ff54c2.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/7.98538131.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/vendors~docsearch.d098b00c.js">
+    <link rel="stylesheet" href="/k8s-fargate-eks/assets/css/0.styles.9486070e.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/k8s-fargate-eks/" class="home-link router-link-active"><img src="https://raw.githubusercontent.com/kubernetes/kubernetes/d9a58a39b69a0eaec5797e0f7a0f9472b4829ab0/logo/logo.svg" alt="AWS Fargate with Amazon EKS" class="logo"> <span class="site-name can-hide">AWS Fargate with Amazon EKS</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/k8s-fargate-eks/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Links" class="dropdown-title"><span class="title">Links</span> <span class="arrow down"></span></button> <button type="button" aria-label="Links" class="mobile-dropdown-title"><span class="title">Links</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://aws.amazon.com/eks/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Amazon EKS
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://aws.amazon.com/fargate/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Amazon Fargate
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/ruzickap/k8s-fargate-eks" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/k8s-fargate-eks/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Links" class="dropdown-title"><span class="title">Links</span> <span class="arrow down"></span></button> <button type="button" aria-label="Links" class="mobile-dropdown-title"><span class="title">Links</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://aws.amazon.com/eks/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Amazon EKS
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://aws.amazon.com/fargate/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Amazon Fargate
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/ruzickap/k8s-fargate-eks" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/k8s-fargate-eks/" aria-current="page" class="sidebar-link">AWS Fargate with Amazon EKS</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/#requirements" class="sidebar-link">Requirements</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/#content" class="sidebar-link">Content</a></li></ul></li><li><a href="/k8s-fargate-eks/part-01/" class="sidebar-link">Amazon EKS on AWS Fargate</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-01/#requirements" class="sidebar-link">Requirements</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-01/#prepare-the-local-working-environment" class="sidebar-link">Prepare the local working environment</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-01/#configure-aws-route-53-domain-delegation" class="sidebar-link">Configure AWS Route 53 Domain delegation</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-01/#add-new-domain-to-route-53-and-policies" class="sidebar-link">Add new domain to Route 53 and Policies</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-01/#create-amazon-eks" class="sidebar-link">Create Amazon EKS</a></li></ul></li><li><a href="/k8s-fargate-eks/part-02/" class="sidebar-link">K8s tools</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-02/#aws-load-balancer-controller" class="sidebar-link">aws-load-balancer-controller</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-02/#cert-manager" class="sidebar-link">cert-manager</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-02/#external-dns" class="sidebar-link">external-dns</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-02/#kubed" class="sidebar-link">kubed</a></li></ul></li><li><a href="/k8s-fargate-eks/part-03/" aria-current="page" class="active sidebar-link">Workload</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-03/#podinfo" class="sidebar-link">podinfo</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-03/#kuard" class="sidebar-link">kuard</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-03/#octant" class="sidebar-link">Octant</a></li></ul></li><li><a href="/k8s-fargate-eks/part-04/" class="sidebar-link">Clean-up</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="workload"><a href="#workload" class="header-anchor">#</a> Workload</h1> <p>Run some workload on the K8s...</p> <h2 id="podinfo"><a href="#podinfo" class="header-anchor">#</a> podinfo</h2> <p>Install <code>podinfo</code> <a href="https://github.com/stefanprodan/podinfo/releases" target="_blank" rel="noopener noreferrer">helm chart<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>
+and modify the
+<a href="https://github.com/stefanprodan/podinfo/blob/master/charts/podinfo/values.yaml" target="_blank" rel="noopener noreferrer">default values<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>.</p> <div class="language-bash extra-class"><pre class="language-bash"><code>helm repo <span class="token function">add</span> sp https://stefanprodan.github.io/podinfo
+helm <span class="token function">install</span> <span class="token parameter variable">--version</span> <span class="token number">5.1</span>.1 <span class="token parameter variable">--values</span> - podinfo sp/podinfo <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+ingress:
+  enabled: true
+  path: /
+  hosts:
+    - podinfo.<span class="token variable">${CLUSTER_FQDN}</span>
+  # tls:
+  #   - secretName: ingress-cert-<span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span>
+  #     hosts:
+  #       - podinfo.<span class="token variable">${CLUSTER_FQDN}</span>
+EOF</span>
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>&quot;sp&quot; has been added to your repositories
+NAME: podinfo
+LAST DEPLOYED: Sat Jan  2 11:15:35 2021
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+1. Get the application URL by running these commands:
+  http://podinfo.k2.k8s.mylabs.dev/
+</code></pre></div><h2 id="kuard"><a href="#kuard" class="header-anchor">#</a> kuard</h2> <p>Install <a href="https://github.com/kubernetes-up-and-running/kuard" target="_blank" rel="noopener noreferrer">kuard<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl run kuard <span class="token parameter variable">--image</span><span class="token operator">=</span>gcr.io/kuar-demo/kuard-amd64:blue <span class="token parameter variable">--port</span><span class="token operator">=</span><span class="token number">8080</span> <span class="token parameter variable">--expose</span><span class="token operator">=</span>true <span class="token parameter variable">--labels</span><span class="token operator">=</span><span class="token string">&quot;app=kuard&quot;</span>
+
+kubectl apply <span class="token parameter variable">-f</span> - <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kuard
+  labels:
+    app: kuard
+spec:
+  rules:
+    - host: kuard.<span class="token variable">${CLUSTER_FQDN}</span>
+      http:
+        paths:
+          - backend:
+              serviceName: kuard
+              servicePort: 8080
+            path: /
+  # tls:
+  #   - hosts:
+  #       - kuard.<span class="token variable">${CLUSTER_FQDN}</span>
+  #     secretName: ingress-cert-<span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span>
+EOF</span>
+</code></pre></div><h2 id="octant"><a href="#octant" class="header-anchor">#</a> Octant</h2> <div class="language-bash extra-class"><pre class="language-bash"><code>helm repo <span class="token function">add</span> octant-dashboard https://aleveille.github.io/octant-dashboard-turnkey/repo
+helm <span class="token function">install</span> <span class="token parameter variable">--version</span> <span class="token number">0.16</span>.2 <span class="token parameter variable">--values</span> - octant octant-dashboard/octant <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+plugins:
+  install:
+    - https://github.com/bloodorangeio/octant-helm/releases/download/v0.1.0/octant-helm_0.1.0_linux_amd64.tar.gz
+ingress:
+  enabled: true
+  hosts:
+    - host: octant.<span class="token variable">${CLUSTER_FQDN}</span>
+      paths: [&quot;/&quot;]
+  # tls:
+  #   - secretName: ingress-cert-<span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span>
+  #     hosts:
+  #       - octant.<span class="token variable">${CLUSTER_FQDN}</span>
+EOF</span>
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>&quot;octant-dashboard&quot; has been added to your repositories
+NAME: octant
+LAST DEPLOYED: Sat Jan  2 11:15:41 2021
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+1. Get the application URL by running these commands:
+  http://octant.k2.k8s.mylabs.dev/
+</code></pre></div><p>Set retention for all log groups which belongs to the cluster to 1 day:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token keyword">for</span> <span class="token for-or-select variable">LOG_GROUP</span> <span class="token keyword">in</span> <span class="token variable"><span class="token variable">$(</span>aws logs describe-log-groups <span class="token operator">|</span> jq <span class="token parameter variable">-r</span> &quot;.logGroups<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">|</span> select<span class="token punctuation">(</span>.logGroupName<span class="token operator">|</span>test<span class="token punctuation">(</span><span class="token punctuation">\</span>&quot;/$<span class="token punctuation">{</span>CLUSTER_NAME<span class="token punctuation">}</span>/<span class="token operator">|</span>/$<span class="token punctuation">{</span>CLUSTER_FQDN<span class="token punctuation">}</span>/<span class="token punctuation">\</span>&quot;<span class="token punctuation">)</span><span class="token variable">)</span></span> .logGroupName<span class="token string">&quot;); do
+  aws logs put-retention-policy --log-group-name &quot;</span><span class="token variable">${LOG_GROUP}</span>&quot; --retention-in-days <span class="token number">1</span>
+<span class="token keyword">done</span>
+</code></pre></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ruzickap/k8s-fargate-eks/edit/master/docs/part-03/README.md" target="_blank" rel="noopener noreferrer">Edit this page</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">6/30/2024, 4:09:44 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/k8s-fargate-eks/part-02/" class="prev">
+        K8s tools
+      </a></span> <span class="next"><a href="/k8s-fargate-eks/part-04/">
+        Clean-up
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/k8s-fargate-eks/assets/js/app.98b2ebc6.js" defer></script><script src="/k8s-fargate-eks/assets/js/2.a27de003.js" defer></script><script src="/k8s-fargate-eks/assets/js/1.30a6593f.js" defer></script><script src="/k8s-fargate-eks/assets/js/25.f9efbddf.js" defer></script>
+  </body>
+</html>

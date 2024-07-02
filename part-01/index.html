@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Amazon EKS on AWS Fargate | AWS Fargate with Amazon EKS</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="https://raw.githubusercontent.com/kubernetes/kubernetes/d9a58a39b69a0eaec5797e0f7a0f9472b4829ab0/logo/logo.svg">
+    <meta name="description" content="AWS Fargate with Amazon EKS">
+    
+    <link rel="preload" href="/k8s-fargate-eks/assets/css/0.styles.9486070e.css" as="style"><link rel="preload" href="/k8s-fargate-eks/assets/js/app.98b2ebc6.js" as="script"><link rel="preload" href="/k8s-fargate-eks/assets/js/2.a27de003.js" as="script"><link rel="preload" href="/k8s-fargate-eks/assets/js/1.30a6593f.js" as="script"><link rel="preload" href="/k8s-fargate-eks/assets/js/23.ca52321a.js" as="script"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/10.340b7a91.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/11.6724c971.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/12.0f6b2c7f.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/13.0f6f4ef5.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/14.28b41666.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/15.d3972987.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/16.4c24402c.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/17.6cd3a12a.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/18.8d7e6487.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/19.78b16bd4.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/20.a3f134b4.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/21.3fb0cd72.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/22.4c1dbdec.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/24.65d86872.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/25.f9efbddf.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/26.bbad3055.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/3.6b4152e0.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/4.bea5e217.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/5.ac8fedb2.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/6.76ff54c2.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/7.98538131.js"><link rel="prefetch" href="/k8s-fargate-eks/assets/js/vendors~docsearch.d098b00c.js">
+    <link rel="stylesheet" href="/k8s-fargate-eks/assets/css/0.styles.9486070e.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/k8s-fargate-eks/" class="home-link router-link-active"><img src="https://raw.githubusercontent.com/kubernetes/kubernetes/d9a58a39b69a0eaec5797e0f7a0f9472b4829ab0/logo/logo.svg" alt="AWS Fargate with Amazon EKS" class="logo"> <span class="site-name can-hide">AWS Fargate with Amazon EKS</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/k8s-fargate-eks/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Links" class="dropdown-title"><span class="title">Links</span> <span class="arrow down"></span></button> <button type="button" aria-label="Links" class="mobile-dropdown-title"><span class="title">Links</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://aws.amazon.com/eks/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Amazon EKS
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://aws.amazon.com/fargate/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Amazon Fargate
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/ruzickap/k8s-fargate-eks" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/k8s-fargate-eks/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Links" class="dropdown-title"><span class="title">Links</span> <span class="arrow down"></span></button> <button type="button" aria-label="Links" class="mobile-dropdown-title"><span class="title">Links</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://aws.amazon.com/eks/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Amazon EKS
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://aws.amazon.com/fargate/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Amazon Fargate
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/ruzickap/k8s-fargate-eks" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/k8s-fargate-eks/" aria-current="page" class="sidebar-link">AWS Fargate with Amazon EKS</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/#requirements" class="sidebar-link">Requirements</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/#content" class="sidebar-link">Content</a></li></ul></li><li><a href="/k8s-fargate-eks/part-01/" aria-current="page" class="active sidebar-link">Amazon EKS on AWS Fargate</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-01/#requirements" class="sidebar-link">Requirements</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-01/#prepare-the-local-working-environment" class="sidebar-link">Prepare the local working environment</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-01/#configure-aws-route-53-domain-delegation" class="sidebar-link">Configure AWS Route 53 Domain delegation</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-01/#add-new-domain-to-route-53-and-policies" class="sidebar-link">Add new domain to Route 53 and Policies</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-01/#create-amazon-eks" class="sidebar-link">Create Amazon EKS</a></li></ul></li><li><a href="/k8s-fargate-eks/part-02/" class="sidebar-link">K8s tools</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-02/#aws-load-balancer-controller" class="sidebar-link">aws-load-balancer-controller</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-02/#cert-manager" class="sidebar-link">cert-manager</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-02/#external-dns" class="sidebar-link">external-dns</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-02/#kubed" class="sidebar-link">kubed</a></li></ul></li><li><a href="/k8s-fargate-eks/part-03/" class="sidebar-link">Workload</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-03/#podinfo" class="sidebar-link">podinfo</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-03/#kuard" class="sidebar-link">kuard</a></li><li class="sidebar-sub-header"><a href="/k8s-fargate-eks/part-03/#octant" class="sidebar-link">Octant</a></li></ul></li><li><a href="/k8s-fargate-eks/part-04/" class="sidebar-link">Clean-up</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="amazon-eks-on-aws-fargate"><a href="#amazon-eks-on-aws-fargate" class="header-anchor">#</a> Amazon EKS on AWS Fargate</h1> <p><img src="https://raw.githubusercontent.com/cncf/landscape/7f5b02ecba914a32912e77fc78e1c54d1c2f98ec/hosted_logos/amazon-eks.svg?sanitize=true" alt="Amazon EKS" title="Amazon EKS"></p> <p>Before starting with the main content, it's necessary to provision
+the <a href="https://aws.amazon.com/eks/" target="_blank" rel="noopener noreferrer">Amazon EKS on AWS Fargate<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> in AWS.</p> <h2 id="requirements"><a href="#requirements" class="header-anchor">#</a> Requirements</h2> <p>If you would like to follow this documents and it's task you will need to set up
+few environment variables.</p> <p>The <code>LETSENCRYPT_ENVIRONMENT</code> variable should be one of:</p> <ul><li><code>staging</code> - Let’s Encrypt will create testing certificate (not valid)</li> <li><code>production</code> - Let’s Encrypt will create valid certificate (use with care)</li></ul> <p><code>BASE_DOMAIN</code> contains DNS records for all your Kubernetes clusters. The cluster
+names will look like <code>CLUSTER_NAME</code>.<code>BASE_DOMAIN</code> (<code>k2.k8s.mylabs.dev</code>).</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># Hostname / FQDN definitions</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">BASE_DOMAIN</span><span class="token operator">=</span><span class="token string">&quot;k8s.mylabs.dev&quot;</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CLUSTER_NAME</span><span class="token operator">=</span><span class="token string">&quot;k2&quot;</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CLUSTER_FQDN</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable">${CLUSTER_NAME}</span>.<span class="token variable">${BASE_DOMAIN}</span>&quot;</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">KUBECONFIG</span><span class="token operator">=</span><span class="token variable">${<span class="token environment constant">PWD</span>}</span>/kubeconfig-<span class="token variable">${CLUSTER_NAME}</span>.conf
+<span class="token comment"># * &quot;production&quot; - valid certificates signed by Lets Encrypt &quot;&quot;</span>
+<span class="token comment"># * &quot;staging&quot; - not trusted certs signed by Lets Encrypt &quot;Fake LE Intermediate X1&quot;</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">LETSENCRYPT_ENVIRONMENT</span><span class="token operator">=</span><span class="token variable">${LETSENCRYPT_ENVIRONMENT<span class="token operator">:-</span>staging}</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">MY_EMAIL</span><span class="token operator">=</span><span class="token string">&quot;petr.ruzicka@gmail.com&quot;</span>
+<span class="token comment"># AWS Region</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">AWS_DEFAULT_REGION</span><span class="token operator">=</span><span class="token string">&quot;eu-central-1&quot;</span>
+<span class="token comment"># Tags used to tag the AWS resources</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">TAGS</span><span class="token operator">=</span><span class="token string">&quot;Owner=<span class="token variable">${MY_EMAIL}</span> Environment=Dev Tribe=Cloud_Native Squad=Cloud_Container_Platform&quot;</span>
+<span class="token builtin class-name">echo</span> <span class="token parameter variable">-e</span> <span class="token string">&quot;<span class="token variable">${MY_EMAIL}</span> | <span class="token variable">${LETSENCRYPT_ENVIRONMENT}</span> | <span class="token variable">${CLUSTER_NAME}</span> | <span class="token variable">${BASE_DOMAIN}</span> | <span class="token variable">${CLUSTER_FQDN}</span><span class="token entity" title="\n">\n</span><span class="token variable">${TAGS}</span>&quot;</span>
+</code></pre></div><p>Prepare GitHub OAuth &quot;access&quot; credentials ans AWS &quot;access&quot; variables.</p> <p>You will need to configure AWS CLI: <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html" target="_blank" rel="noopener noreferrer">Configuring the AWS CLI<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># AWS Credentials</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">AWS_ACCESS_KEY_ID</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">AWS_SECRET_ACCESS_KEY</span><span class="token operator">=</span><span class="token string">&quot;&quot;</span>
+</code></pre></div><h2 id="prepare-the-local-working-environment"><a href="#prepare-the-local-working-environment" class="header-anchor">#</a> Prepare the local working environment</h2> <div class="custom-block tip"><p class="custom-block-title">TIP</p> <p>You can skip these steps if you have all the required software already
+installed.</p></div> <p>Install necessary software:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token keyword">if</span> <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token parameter variable">-x</span> /usr/bin/apt-get <span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token function">apt</span> update <span class="token parameter variable">-qq</span>
+  <span class="token assign-left variable">DEBIAN_FRONTEND</span><span class="token operator">=</span>noninteractive <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token parameter variable">-y</span> <span class="token parameter variable">-qq</span> ansible awscli <span class="token function">git</span> jq <span class="token function">sudo</span>
+<span class="token keyword">fi</span>
+</code></pre></div><p>Install <a href="https://github.com/kubernetes/kubectl" target="_blank" rel="noopener noreferrer">kubectl<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> binary:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token keyword">if</span> <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token operator">!</span> <span class="token parameter variable">-x</span> /usr/local/bin/kubectl <span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token comment"># https://github.com/kubernetes/kubectl/releases</span>
+  <span class="token function">sudo</span> <span class="token function">curl</span> <span class="token parameter variable">-s</span> <span class="token parameter variable">-Lo</span> /usr/local/bin/kubectl <span class="token string">&quot;https://storage.googleapis.com/kubernetes-release/release/v1.19.5/bin/<span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span> <span class="token operator">|</span> <span class="token function">sed</span> <span class="token string">&quot;s/./\L&amp;/g&quot;</span> <span class="token variable">)</span></span>/amd64/kubectl&quot;</span>
+  <span class="token function">sudo</span> <span class="token function">chmod</span> a+x /usr/local/bin/kubectl
+<span class="token keyword">fi</span>
+</code></pre></div><p>Install <a href="https://helm.sh/" target="_blank" rel="noopener noreferrer">Helm<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token keyword">if</span> <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token operator">!</span> <span class="token parameter variable">-x</span> /usr/local/bin/helm <span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token comment"># https://github.com/helm/helm/releases</span>
+  <span class="token function">curl</span> <span class="token parameter variable">-s</span> https://raw.githubusercontent.com/helm/helm/master/scripts/get <span class="token operator">|</span> <span class="token function">bash</span> <span class="token parameter variable">-s</span> -- <span class="token parameter variable">--version</span> v3.4.0
+<span class="token keyword">fi</span>
+</code></pre></div><p>Install <a href="https://eksctl.io/" target="_blank" rel="noopener noreferrer">eksctl<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token keyword">if</span> <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token operator">!</span> <span class="token parameter variable">-x</span> /usr/local/bin/eksctl <span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token comment"># https://github.com/weaveworks/eksctl/releases</span>
+  <span class="token function">curl</span> <span class="token parameter variable">-s</span> <span class="token parameter variable">-L</span> <span class="token string">&quot;https://github.com/weaveworks/eksctl/releases/download/0.34.0/eksctl_<span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span><span class="token variable">)</span></span>_amd64.tar.gz&quot;</span> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tar</span> xz <span class="token parameter variable">-C</span> /usr/local/bin/
+<span class="token keyword">fi</span>
+</code></pre></div><p>Install <a href="https://github.com/kubernetes-sigs/aws-iam-authenticator" target="_blank" rel="noopener noreferrer">AWS IAM Authenticator for Kubernetes<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token keyword">if</span> <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token operator">!</span> <span class="token parameter variable">-x</span> /usr/local/bin/aws-iam-authenticator <span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token comment"># https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html</span>
+  <span class="token function">sudo</span> <span class="token function">curl</span> <span class="token parameter variable">-s</span> <span class="token parameter variable">-Lo</span> /usr/local/bin/aws-iam-authenticator <span class="token string">&quot;https://amazon-eks.s3.us-west-2.amazonaws.com/1.18.9/2020-11-02/bin/<span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span> <span class="token operator">|</span> <span class="token function">sed</span> <span class="token string">&quot;s/./\L&amp;/g&quot;</span> <span class="token variable">)</span></span>/amd64/aws-iam-authenticator&quot;</span>
+  <span class="token function">sudo</span> <span class="token function">chmod</span> a+x /usr/local/bin/aws-iam-authenticator
+<span class="token keyword">fi</span>
+</code></pre></div><h2 id="configure-aws-route-53-domain-delegation"><a href="#configure-aws-route-53-domain-delegation" class="header-anchor">#</a> Configure AWS Route 53 Domain delegation</h2> <p>Create DNS zone (<code>BASE_DOMAIN</code>):</p> <div class="language-shell extra-class"><pre class="language-shell"><code>aws route53 create-hosted-zone <span class="token parameter variable">--output</span> json <span class="token punctuation">\</span>
+  <span class="token parameter variable">--name</span> <span class="token variable">${BASE_DOMAIN}</span> <span class="token punctuation">\</span>
+  --caller-reference <span class="token string">&quot;<span class="token variable"><span class="token variable">$(</span><span class="token function">date</span><span class="token variable">)</span></span>&quot;</span> <span class="token punctuation">\</span>
+  --hosted-zone-config<span class="token operator">=</span><span class="token string">&quot;{<span class="token entity" title="\&quot;">\&quot;</span>Comment<span class="token entity" title="\&quot;">\&quot;</span>: <span class="token entity" title="\&quot;">\&quot;</span>Created by <span class="token variable">${MY_EMAIL}</span><span class="token entity" title="\&quot;">\&quot;</span>, <span class="token entity" title="\&quot;">\&quot;</span>PrivateZone<span class="token entity" title="\&quot;">\&quot;</span>: false}&quot;</span> <span class="token operator">|</span> jq
+</code></pre></div><p>Use your domain registrar to change the nameservers for your zone (for example
+&quot;mylabs.dev&quot;) to use the Amazon Route 53 nameservers. Here is the way how you
+can find out the the Route 53 nameservers:</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token assign-left variable">NEW_ZONE_ID</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>aws route53 list-hosted-zones <span class="token parameter variable">--query</span> <span class="token string">&quot;HostedZones[?Name==\<span class="token variable"><span class="token variable">`</span>$<span class="token punctuation">{</span>BASE_DOMAIN<span class="token punctuation">}</span>.<span class="token punctuation">\</span><span class="token variable">`</span></span>].Id&quot;</span> <span class="token parameter variable">--output</span> text<span class="token variable">)</span></span>
+<span class="token assign-left variable">NEW_ZONE_NS</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>aws route53 get-hosted-zone <span class="token parameter variable">--output</span> json <span class="token parameter variable">--id</span> <span class="token string">&quot;<span class="token variable">${NEW_ZONE_ID}</span>&quot;</span> <span class="token parameter variable">--query</span> <span class="token string">&quot;DelegationSet.NameServers&quot;</span><span class="token variable">)</span></span>
+<span class="token assign-left variable">NEW_ZONE_NS1</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> <span class="token string">&quot;<span class="token variable">${NEW_ZONE_NS}</span>&quot;</span> <span class="token operator">|</span> jq <span class="token parameter variable">-r</span> <span class="token string">&quot;.[0]&quot;</span><span class="token variable">)</span></span>
+<span class="token assign-left variable">NEW_ZONE_NS2</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> <span class="token string">&quot;<span class="token variable">${NEW_ZONE_NS}</span>&quot;</span> <span class="token operator">|</span> jq <span class="token parameter variable">-r</span> <span class="token string">&quot;.[1]&quot;</span><span class="token variable">)</span></span>
+</code></pre></div><p>Create the NS record in <code>k8s.mylabs.dev</code> (<code>BASE_DOMAIN</code>) for proper zone
+delegation. This step depends on your domain registrar - I'm using CloudFlare
+and using Ansible to automate it:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>ansible <span class="token parameter variable">-m</span> cloudflare_dns <span class="token parameter variable">-c</span> <span class="token builtin class-name">local</span> <span class="token parameter variable">-i</span> <span class="token string">&quot;localhost,&quot;</span> localhost <span class="token parameter variable">-a</span> <span class="token string">&quot;zone=mylabs.dev record=<span class="token variable">${BASE_DOMAIN}</span> type=NS value=<span class="token variable">${NEW_ZONE_NS1}</span> solo=true proxied=no account_email=<span class="token variable">${CLOUDFLARE_EMAIL}</span> account_api_token=<span class="token variable">${CLOUDFLARE_API_KEY}</span>&quot;</span>
+ansible <span class="token parameter variable">-m</span> cloudflare_dns <span class="token parameter variable">-c</span> <span class="token builtin class-name">local</span> <span class="token parameter variable">-i</span> <span class="token string">&quot;localhost,&quot;</span> localhost <span class="token parameter variable">-a</span> <span class="token string">&quot;zone=mylabs.dev record=<span class="token variable">${BASE_DOMAIN}</span> type=NS value=<span class="token variable">${NEW_ZONE_NS2}</span> solo=false proxied=no account_email=<span class="token variable">${CLOUDFLARE_EMAIL}</span> account_api_token=<span class="token variable">${CLOUDFLARE_API_KEY}</span>&quot;</span>
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>localhost | CHANGED =&gt; {
+    &quot;ansible_facts&quot;: {
+        &quot;discovered_interpreter_python&quot;: &quot;/usr/bin/python&quot;
+    },
+    &quot;changed&quot;: true,
+    &quot;result&quot;: {
+        &quot;record&quot;: {
+            &quot;content&quot;: &quot;ns-885.awsdns-46.net&quot;,
+            &quot;created_on&quot;: &quot;2020-11-13T06:25:32.18642Z&quot;,
+            &quot;id&quot;: &quot;dxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxb&quot;,
+            &quot;locked&quot;: false,
+            &quot;meta&quot;: {
+                &quot;auto_added&quot;: false,
+                &quot;managed_by_apps&quot;: false,
+                &quot;managed_by_argo_tunnel&quot;: false,
+                &quot;source&quot;: &quot;primary&quot;
+            },
+            &quot;modified_on&quot;: &quot;2020-11-13T06:25:32.18642Z&quot;,
+            &quot;name&quot;: &quot;k8s.mylabs.dev&quot;,
+            &quot;proxiable&quot;: false,
+            &quot;proxied&quot;: false,
+            &quot;ttl&quot;: 1,
+            &quot;type&quot;: &quot;NS&quot;,
+            &quot;zone_id&quot;: &quot;2xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxe&quot;,
+            &quot;zone_name&quot;: &quot;mylabs.dev&quot;
+        }
+    }
+}
+localhost | CHANGED =&gt; {
+    &quot;ansible_facts&quot;: {
+        &quot;discovered_interpreter_python&quot;: &quot;/usr/bin/python&quot;
+    },
+    &quot;changed&quot;: true,
+    &quot;result&quot;: {
+        &quot;record&quot;: {
+            &quot;content&quot;: &quot;ns-1692.awsdns-19.co.uk&quot;,
+            &quot;created_on&quot;: &quot;2020-11-13T06:25:37.605605Z&quot;,
+            &quot;id&quot;: &quot;9xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxb&quot;,
+            &quot;locked&quot;: false,
+            &quot;meta&quot;: {
+                &quot;auto_added&quot;: false,
+                &quot;managed_by_apps&quot;: false,
+                &quot;managed_by_argo_tunnel&quot;: false,
+                &quot;source&quot;: &quot;primary&quot;
+            },
+            &quot;modified_on&quot;: &quot;2020-11-13T06:25:37.605605Z&quot;,
+            &quot;name&quot;: &quot;k8s.mylabs.dev&quot;,
+            &quot;proxiable&quot;: false,
+            &quot;proxied&quot;: false,
+            &quot;ttl&quot;: 1,
+            &quot;type&quot;: &quot;NS&quot;,
+            &quot;zone_id&quot;: &quot;2xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxe&quot;,
+            &quot;zone_name&quot;: &quot;mylabs.dev&quot;
+        }
+    }
+}
+</code></pre></div><h2 id="add-new-domain-to-route-53-and-policies"><a href="#add-new-domain-to-route-53-and-policies" class="header-anchor">#</a> Add new domain to Route 53 and Policies</h2> <p>Details with examples are described on these links:</p> <ul><li><a href="https://aws.amazon.com/blogs/opensource/introducing-fine-grained-iam-roles-service-accounts/" target="_blank" rel="noopener noreferrer">https://aws.amazon.com/blogs/opensource/introducing-fine-grained-iam-roles-service-accounts/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://cert-manager.io/docs/configuration/acme/dns01/route53/" target="_blank" rel="noopener noreferrer">https://cert-manager.io/docs/configuration/acme/dns01/route53/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/aws.md" target="_blank" rel="noopener noreferrer">https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/aws.md<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul> <p>Create CloudFormation template containing policies for Route53, S3 access
+(Harbor) and Domain. AWS IAM Policy <code>${ClusterFQDN}-AmazonRoute53Domains</code>
+allows <code>cert-manager</code> and <code>external-dns</code> to modify the Route 53 entries.
+Put new domain <code>CLUSTER_FQDN</code> to the Route 53 and configure the
+DNS delegation from the <code>BASE_DOMAIN</code>.</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token builtin class-name">test</span> <span class="token parameter variable">-d</span> tmp <span class="token operator">||</span> <span class="token function">mkdir</span> <span class="token parameter variable">-v</span> tmp
+
+<span class="token function">cat</span> <span class="token operator">&gt;</span> tmp/aws_policies.yml <span class="token operator">&lt;&lt;</span> <span class="token punctuation">\</span>EOF
+Description: <span class="token string">&quot;Template to generate the necessary Route53 Policies for access to Route53 and create EFS&quot;</span>
+Parameters:
+  ClusterFQDN:
+    Description: <span class="token string">&quot;Cluster domain where all necessary app subdomains will live (subdomain of BaseDomain). Ex: k1.k8s.mylabs.dev&quot;</span>
+    Type: String
+  BaseDomain:
+    Description: <span class="token string">&quot;Base domain where cluster domains + their subdomains will live. Ex: k8s.mylabs.dev&quot;</span>
+    Type: String
+Resources:
+  Route53Policy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: <span class="token operator">!</span>Sub <span class="token string">&quot;<span class="token variable">${ClusterFQDN}</span>-AmazonRoute53Domains&quot;</span>
+      Description: <span class="token operator">!</span>Sub <span class="token string">&quot;Policy required by cert-manager or external-dns to be able to modify Route 53 entries for <span class="token variable">${ClusterFQDN}</span>&quot;</span>
+      PolicyDocument:
+        Version: <span class="token string">&quot;2012-10-17&quot;</span>
+        Statement:
+        - Effect: Allow
+          Action:
+          - route53:GetChange
+          Resource: <span class="token string">&quot;arn:aws:route53:::change/*&quot;</span>
+        - Effect: Allow
+          Action:
+          - route53:ChangeResourceRecordSets
+          - route53:ListResourceRecordSets
+          Resource: <span class="token operator">!</span>Sub <span class="token string">&quot;arn:aws:route53:::hostedzone/<span class="token variable">${HostedZone.Id}</span>&quot;</span>
+        - Effect: Allow
+          Action:
+          - route53:ListHostedZones
+          - route53:ListHostedZonesByName
+          Resource: <span class="token string">&quot;*&quot;</span>
+  HostedZone:
+    Type: AWS::Route53::HostedZone
+    Properties:
+      Name: <span class="token operator">!</span>Ref ClusterFQDN
+  RecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneName: <span class="token operator">!</span>Sub <span class="token string">&quot;<span class="token variable">${BaseDomain}</span>.&quot;</span>
+      Name: <span class="token operator">!</span>Ref ClusterFQDN
+      Type: NS
+      TTL: <span class="token number">60</span>
+      ResourceRecords: <span class="token operator">!</span>GetAtt HostedZone.NameServers
+  CloudWatchPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: <span class="token operator">!</span>Sub <span class="token string">&quot;<span class="token variable">${ClusterFQDN}</span>-CloudWatch&quot;</span>
+      Description: <span class="token operator">!</span>Sub <span class="token string">&quot;Policy required by Fargate to log to CloudWatch for <span class="token variable">${ClusterFQDN}</span>&quot;</span>
+      PolicyDocument:
+        Version: <span class="token string">&quot;2012-10-17&quot;</span>
+        Statement:
+        - Effect: Allow
+          Action:
+          - logs:CreateLogStream
+          - logs:CreateLogGroup
+          - logs:DescribeLogStreams
+          - logs:PutLogEvents
+          Resource: <span class="token string">&quot;*&quot;</span>
+  AWSLoadBalancerControllerPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: <span class="token operator">!</span>Sub <span class="token string">&quot;<span class="token variable">${ClusterFQDN}</span>-AWSLoadBalancerControllerPolicy&quot;</span>
+      Description: <span class="token operator">!</span>Sub <span class="token string">&quot;Policy required by AWS LoadBalancer Controller for <span class="token variable">${ClusterFQDN}</span>&quot;</span>
+      PolicyDocument:
+        <span class="token comment"># https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/main/docs/install/iam_policy.json</span>
+        Version: <span class="token string">&quot;2012-10-17&quot;</span>
+        Statement:
+        - Effect: Allow
+          Action:
+          - iam:CreateServiceLinkedRole
+          - ec2:DescribeAccountAttributes
+          - ec2:DescribeAddresses
+          - ec2:DescribeInternetGateways
+          - ec2:DescribeVpcs
+          - ec2:DescribeSubnets
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeInstances
+          - ec2:DescribeNetworkInterfaces
+          - ec2:DescribeTags
+          - elasticloadbalancing:DescribeLoadBalancers
+          - elasticloadbalancing:DescribeLoadBalancerAttributes
+          - elasticloadbalancing:DescribeListeners
+          - elasticloadbalancing:DescribeListenerCertificates
+          - elasticloadbalancing:DescribeSSLPolicies
+          - elasticloadbalancing:DescribeRules
+          - elasticloadbalancing:DescribeTargetGroups
+          - elasticloadbalancing:DescribeTargetGroupAttributes
+          - elasticloadbalancing:DescribeTargetHealth
+          - elasticloadbalancing:DescribeTags
+          Resource: <span class="token string">&quot;*&quot;</span>
+        - Effect: Allow
+          Action:
+          - cognito-idp:DescribeUserPoolClient
+          - acm:ListCertificates
+          - acm:DescribeCertificate
+          - iam:ListServerCertificates
+          - iam:GetServerCertificate
+          - waf-regional:GetWebACL
+          - waf-regional:GetWebACLForResource
+          - waf-regional:AssociateWebACL
+          - waf-regional:DisassociateWebACL
+          - wafv2:GetWebACL
+          - wafv2:GetWebACLForResource
+          - wafv2:AssociateWebACL
+          - wafv2:DisassociateWebACL
+          - shield:GetSubscriptionState
+          - shield:DescribeProtection
+          - shield:CreateProtection
+          - shield:DeleteProtection
+          Resource: <span class="token string">&quot;*&quot;</span>
+        - Effect: Allow
+          Action:
+          - ec2:AuthorizeSecurityGroupIngress
+          - ec2:RevokeSecurityGroupIngress
+          Resource: <span class="token string">&quot;*&quot;</span>
+        - Effect: Allow
+          Action:
+          - ec2:CreateSecurityGroup
+          Resource: <span class="token string">&quot;*&quot;</span>
+        - Effect: Allow
+          Action:
+          - ec2:CreateTags
+          Resource: arn:aws:ec2:*:*:security-group/*
+          Condition:
+            StringEquals:
+              ec2:CreateAction: CreateSecurityGroup
+            <span class="token string">&quot;Null&quot;</span><span class="token builtin class-name">:</span>
+              aws:RequestTag/elbv2.k8s.aws/cluster: <span class="token string">&quot;false&quot;</span>
+        - Effect: Allow
+          Action:
+          - ec2:CreateTags
+          - ec2:DeleteTags
+          Resource: arn:aws:ec2:*:*:security-group/*
+          Condition:
+            <span class="token string">&quot;Null&quot;</span><span class="token builtin class-name">:</span>
+              aws:RequestTag/elbv2.k8s.aws/cluster: <span class="token string">&quot;true&quot;</span>
+              aws:ResourceTag/elbv2.k8s.aws/cluster: <span class="token string">&quot;false&quot;</span>
+        - Effect: Allow
+          Action:
+          - ec2:AuthorizeSecurityGroupIngress
+          - ec2:RevokeSecurityGroupIngress
+          - ec2:DeleteSecurityGroup
+          Resource: <span class="token string">&quot;*&quot;</span>
+          Condition:
+            <span class="token string">&quot;Null&quot;</span><span class="token builtin class-name">:</span>
+              aws:ResourceTag/elbv2.k8s.aws/cluster: <span class="token string">&quot;false&quot;</span>
+        - Effect: Allow
+          Action:
+          - elasticloadbalancing:CreateLoadBalancer
+          - elasticloadbalancing:CreateTargetGroup
+          Resource: <span class="token string">&quot;*&quot;</span>
+          Condition:
+            <span class="token string">&quot;Null&quot;</span><span class="token builtin class-name">:</span>
+              aws:RequestTag/elbv2.k8s.aws/cluster: <span class="token string">&quot;false&quot;</span>
+        - Effect: Allow
+          Action:
+          - elasticloadbalancing:CreateListener
+          - elasticloadbalancing:DeleteListener
+          - elasticloadbalancing:CreateRule
+          - elasticloadbalancing:DeleteRule
+          Resource: <span class="token string">&quot;*&quot;</span>
+        - Effect: Allow
+          Action:
+          - elasticloadbalancing:AddTags
+          - elasticloadbalancing:RemoveTags
+          Resource:
+          - arn:aws:elasticloadbalancing:*:*:targetgroup/*/*
+          - arn:aws:elasticloadbalancing:*:*:loadbalancer/net/*/*
+          - arn:aws:elasticloadbalancing:*:*:loadbalancer/app/*/*
+          Condition:
+            <span class="token string">&quot;Null&quot;</span><span class="token builtin class-name">:</span>
+              aws:RequestTag/elbv2.k8s.aws/cluster: <span class="token string">&quot;true&quot;</span>
+              aws:ResourceTag/elbv2.k8s.aws/cluster: <span class="token string">&quot;false&quot;</span>
+        - Effect: Allow
+          Action:
+          - elasticloadbalancing:ModifyLoadBalancerAttributes
+          - elasticloadbalancing:SetIpAddressType
+          - elasticloadbalancing:SetSecurityGroups
+          - elasticloadbalancing:SetSubnets
+          - elasticloadbalancing:DeleteLoadBalancer
+          - elasticloadbalancing:ModifyTargetGroup
+          - elasticloadbalancing:ModifyTargetGroupAttributes
+          - elasticloadbalancing:DeleteTargetGroup
+          Resource: <span class="token string">&quot;*&quot;</span>
+          Condition:
+            <span class="token string">&quot;Null&quot;</span><span class="token builtin class-name">:</span>
+              aws:ResourceTag/elbv2.k8s.aws/cluster: <span class="token string">&quot;false&quot;</span>
+        - Effect: Allow
+          Action:
+          - elasticloadbalancing:RegisterTargets
+          - elasticloadbalancing:DeregisterTargets
+          Resource: arn:aws:elasticloadbalancing:*:*:targetgroup/*/*
+        - Effect: Allow
+          Action:
+          - elasticloadbalancing:SetWebAcl
+          - elasticloadbalancing:ModifyListener
+          - elasticloadbalancing:AddListenerCertificates
+          - elasticloadbalancing:RemoveListenerCertificates
+          - elasticloadbalancing:ModifyRule
+          Resource: <span class="token string">&quot;*&quot;</span>
+Outputs:
+  Route53Policy:
+    Description: The ARN of the created Route53Policy
+    Value:
+      Ref: Route53Policy
+    Export:
+      Name:
+        Fn::Sub: <span class="token string">&quot;<span class="token variable">${AWS<span class="token operator">:</span><span class="token operator">:</span>StackName}</span>-Route53Policy&quot;</span>
+  HostedZone:
+    Description: The ARN of the created Route53 Zone <span class="token keyword">for</span> K8s cluster
+    Value:
+      Ref: HostedZone
+    Export:
+      Name:
+        Fn::Sub: <span class="token string">&quot;<span class="token variable">${AWS<span class="token operator">:</span><span class="token operator">:</span>StackName}</span>-HostedZone&quot;</span>
+  CloudWatchPolicy:
+    Description: The ARN of the created CloudWatchPolicy
+    Value:
+      Ref: CloudWatchPolicy
+    Export:
+      Name:
+        Fn::Sub: <span class="token string">&quot;<span class="token variable">${AWS<span class="token operator">:</span><span class="token operator">:</span>StackName}</span>-CloudWatchPolicy&quot;</span>
+  AWSLoadBalancerControllerPolicy:
+    Description: The ARN of the created AWSLoadBalancerControllerPolicy
+    Value:
+      Ref: AWSLoadBalancerControllerPolicy
+    Export:
+      Name:
+        Fn::Sub: <span class="token string">&quot;<span class="token variable">${AWS<span class="token operator">:</span><span class="token operator">:</span>StackName}</span>-AWSLoadBalancerControllerPolicy&quot;</span>
+
+EOF
+
+<span class="token builtin class-name">eval</span> aws cloudformation deploy <span class="token parameter variable">--capabilities</span> CAPABILITY_NAMED_IAM <span class="token punctuation">\</span>
+  --parameter-overrides <span class="token string">&quot;ClusterFQDN=<span class="token variable">${CLUSTER_FQDN}</span> BaseDomain=<span class="token variable">${BASE_DOMAIN}</span>&quot;</span> <span class="token punctuation">\</span>
+  --stack-name <span class="token string">&quot;<span class="token variable">${CLUSTER_NAME}</span>-route53-cloudwatch&quot;</span> --template-file tmp/aws_policies.yml <span class="token parameter variable">--tags</span> <span class="token string">&quot;<span class="token variable">${TAGS}</span>&quot;</span>
+
+<span class="token assign-left variable">AWS_CLOUDFORMATION_DETAILS</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>aws cloudformation describe-stacks --stack-name <span class="token string">&quot;<span class="token variable">${CLUSTER_NAME}</span>-route53-cloudwatch&quot;</span><span class="token variable">)</span></span>
+<span class="token assign-left variable">ROUTE53_POLICY_ARN</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> <span class="token string">&quot;<span class="token variable">${AWS_CLOUDFORMATION_DETAILS}</span>&quot;</span> <span class="token operator">|</span> jq <span class="token parameter variable">-r</span> <span class="token string">&quot;.Stacks[0].Outputs[] | select(.OutputKey==<span class="token entity" title="\&quot;">\&quot;</span>Route53Policy<span class="token entity" title="\&quot;">\&quot;</span>) .OutputValue&quot;</span><span class="token variable">)</span></span>
+<span class="token assign-left variable">CLOUDWATCH_POLICY_ARN</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> <span class="token string">&quot;<span class="token variable">${AWS_CLOUDFORMATION_DETAILS}</span>&quot;</span> <span class="token operator">|</span> jq <span class="token parameter variable">-r</span> <span class="token string">&quot;.Stacks[0].Outputs[] | select(.OutputKey==<span class="token entity" title="\&quot;">\&quot;</span>CloudWatchPolicy<span class="token entity" title="\&quot;">\&quot;</span>) .OutputValue&quot;</span><span class="token variable">)</span></span>
+<span class="token assign-left variable">AWSLOADBALANCERCONTROLLER_POLICY_ARN</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> <span class="token string">&quot;<span class="token variable">${AWS_CLOUDFORMATION_DETAILS}</span>&quot;</span> <span class="token operator">|</span> jq <span class="token parameter variable">-r</span> <span class="token string">&quot;.Stacks[0].Outputs[] | select(.OutputKey==<span class="token entity" title="\&quot;">\&quot;</span>AWSLoadBalancerControllerPolicy<span class="token entity" title="\&quot;">\&quot;</span>) .OutputValue&quot;</span><span class="token variable">)</span></span>
+</code></pre></div><h2 id="create-amazon-eks"><a href="#create-amazon-eks" class="header-anchor">#</a> Create Amazon EKS</h2> <p><img src="https://raw.githubusercontent.com/aws-samples/eks-workshop/65b766c494a5b4f5420b2912d8373c4957163541/static/images/3-service-animated.gif" alt="EKS" title="EKS"></p> <p>Create <a href="https://aws.amazon.com/eks/" target="_blank" rel="noopener noreferrer">Amazon EKS<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> in AWS by using <a href="https://eksctl.io/" target="_blank" rel="noopener noreferrer">eksctl<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>.
+It's a tool from Weaveworks based on official
+AWS CloudFormation templates which will be used to launch and configure our
+Amazon EKS on AWS Fargate cluster.</p> <p><img src="https://raw.githubusercontent.com/weaveworks/eksctl/c365149fc1a0b8d357139cbd6cda5aee8841c16c/logo/eksctl.png" alt="eksctl" title="eksctl"></p> <p>Create the Amazon EKS cluster using <code>eksctl</code>:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>eksctl create cluster --config-file - <span class="token parameter variable">--kubeconfig</span> <span class="token string">&quot;<span class="token variable">${KUBECONFIG}</span>&quot;</span> <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+# https://eksctl.io/usage/schema/
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: <span class="token variable">${CLUSTER_NAME}</span>
+  region: <span class="token variable">${AWS_DEFAULT_REGION}</span>
+  version: &quot;1.18&quot;
+  tags: &amp;tags
+    Owner: <span class="token variable">${MY_EMAIL}</span>
+    Environment: Dev
+    Tribe: Cloud_Native
+    Squad: Cloud_Container_Platform
+
+availabilityZones:
+  - <span class="token variable">${AWS_DEFAULT_REGION}</span>a
+  - <span class="token variable">${AWS_DEFAULT_REGION}</span>b
+
+iam:
+  withOIDC: true
+  serviceAccounts:
+    - metadata:
+        name: cert-manager
+        namespace: cert-manager
+      attachPolicyARNs:
+        - <span class="token variable">${ROUTE53_POLICY_ARN}</span>
+    - metadata:
+        name: external-dns
+        namespace: external-dns
+      attachPolicyARNs:
+        - <span class="token variable">${ROUTE53_POLICY_ARN}</span>
+    - metadata:
+        name: aws-load-balancer-controller
+        namespace: kube-system
+      attachPolicyARNs:
+        - <span class="token variable">${AWSLOADBALANCERCONTROLLER_POLICY_ARN}</span>
+
+fargateProfiles:
+  - name: fargate-default
+    selectors:
+      - namespace: default
+      - namespace: kube-system
+    tags: *tags
+  # - name: fargate-cert-manager
+  #   selectors:
+  #     - namespace: cert-manager
+  #   tags: *tags
+  # - name: fargate-external-dns
+  #   selectors:
+  #     - namespace: external-dns
+  #   tags: *tags
+  # - name: fargate-kubed
+  #   selectors:
+  #     - namespace: kubed
+  #   tags: *tags
+
+cloudWatch:
+  clusterLogging:
+     enableTypes: [&quot;audit&quot;, &quot;authenticator&quot;, &quot;controllerManager&quot;]
+EOF</span>
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>[ℹ]  eksctl version 0.35.0
+[ℹ]  using region eu-central-1
+[ℹ]  subnets for eu-central-1a - public:192.168.0.0/19 private:192.168.64.0/19
+[ℹ]  subnets for eu-central-1b - public:192.168.32.0/19 private:192.168.96.0/19
+[ℹ]  using Kubernetes version 1.18
+[ℹ]  creating EKS cluster &quot;k2&quot; in &quot;eu-central-1&quot; region with Fargate profile
+[ℹ]  will create a CloudFormation stack for cluster itself and 0 nodegroup stack(s)
+[ℹ]  will create a CloudFormation stack for cluster itself and 0 managed nodegroup stack(s)
+[ℹ]  if you encounter any issues, check CloudFormation console or try 'eksctl utils describe-stacks --region=eu-central-1 --cluster=k2'
+[ℹ]  Kubernetes API endpoint access will use default of {publicAccess=true, privateAccess=false} for cluster &quot;k2&quot; in &quot;eu-central-1&quot;
+[ℹ]  2 sequential tasks: { create cluster control plane &quot;k2&quot;, 2 sequential sub-tasks: { 6 sequential sub-tasks: { tag cluster, update CloudWatch logging configuration, create fargate profiles, associate IAM OIDC provider, 4 parallel sub-tasks: { 2 sequential sub-tasks: { create IAM role for serviceaccount &quot;cert-manager/cert-manager&quot;, create serviceaccount &quot;cert-manager/cert-manager&quot; }, 2 sequential sub-tasks: { create IAM role for serviceaccount &quot;external-dns/external-dns&quot;, create serviceaccount &quot;external-dns/external-dns&quot; }, 2 sequential sub-tasks: { create IAM role for serviceaccount &quot;kube-system/aws-load-balancer-controller&quot;, create serviceaccount &quot;kube-system/aws-load-balancer-controller&quot; }, 2 sequential sub-tasks: { create IAM role for serviceaccount &quot;kube-system/aws-node&quot;, create serviceaccount &quot;kube-system/aws-node&quot; } }, restart daemonset &quot;kube-system/aws-node&quot; }, create addons } }
+[ℹ]  building cluster stack &quot;eksctl-k2-cluster&quot;
+[ℹ]  deploying stack &quot;eksctl-k2-cluster&quot;
+[✔]  tagged EKS cluster (Environment=Dev, Owner=petr.ruzicka@gmail.com, Squad=Cloud_Container_Platform, Tribe=Cloud_Native)
+[✔]  configured CloudWatch logging for cluster &quot;k2&quot; in &quot;eu-central-1&quot; (enabled types: audit, authenticator, controllerManager &amp;amp; disabled types: api, scheduler)
+[ℹ]  creating Fargate profile &quot;fargate-default&quot; on EKS cluster &quot;k2&quot;
+[ℹ]  created Fargate profile &quot;fargate-default&quot; on EKS cluster &quot;k2&quot;
+[ℹ]  &quot;coredns&quot; is now schedulable onto Fargate
+[ℹ]  &quot;coredns&quot; is now scheduled onto Fargate
+[ℹ]  &quot;coredns&quot; pods are now scheduled onto Fargate
+[ℹ]  building iamserviceaccount stack &quot;eksctl-k2-addon-iamserviceaccount-external-dns-external-dns&quot;
+[ℹ]  building iamserviceaccount stack &quot;eksctl-k2-addon-iamserviceaccount-kube-system-aws-node&quot;
+[ℹ]  building iamserviceaccount stack &quot;eksctl-k2-addon-iamserviceaccount-cert-manager-cert-manager&quot;
+[ℹ]  building iamserviceaccount stack &quot;eksctl-k2-addon-iamserviceaccount-kube-system-aws-load-balancer-controller&quot;
+[ℹ]  deploying stack &quot;eksctl-k2-addon-iamserviceaccount-kube-system-aws-load-balancer-controller&quot;
+[ℹ]  deploying stack &quot;eksctl-k2-addon-iamserviceaccount-cert-manager-cert-manager&quot;
+[ℹ]  deploying stack &quot;eksctl-k2-addon-iamserviceaccount-external-dns-external-dns&quot;
+[ℹ]  deploying stack &quot;eksctl-k2-addon-iamserviceaccount-kube-system-aws-node&quot;
+[ℹ]  created serviceaccount &quot;kube-system/aws-load-balancer-controller&quot;
+[ℹ]  created namespace &quot;external-dns&quot;
+[ℹ]  created serviceaccount &quot;external-dns/external-dns&quot;
+[ℹ]  serviceaccount &quot;kube-system/aws-node&quot; already exists
+[ℹ]  updated serviceaccount &quot;kube-system/aws-node&quot;
+[ℹ]  created namespace &quot;cert-manager&quot;
+[ℹ]  created serviceaccount &quot;cert-manager/cert-manager&quot;
+[ℹ]  daemonset &quot;kube-system/aws-node&quot; restarted
+[ℹ]  waiting for the control plane availability...
+[✔]  saved kubeconfig as &quot;/Users/ruzickap/git/k8s-fargate-eks/kubeconfig-k2.conf&quot;
+[ℹ]  no tasks
+[✔]  all EKS cluster resources for &quot;k2&quot; have been created
+[ℹ]  kubectl command should work with &quot;/Users/ruzickap/git/k8s-fargate-eks/kubeconfig-k2.conf&quot;, try 'kubectl --kubeconfig=/Users/ruzickap/git/k8s-fargate-eks/kubeconfig-k2.conf get nodes'
+[✔]  EKS cluster &quot;k2&quot; in &quot;eu-central-1&quot; region is ready
+</code></pre></div><p>Remove namespaces with serviceaccounts created by <code>eksctl</code>:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>kubectl delete serviceaccount <span class="token parameter variable">-n</span> kube-system cert-manager
+kubectl delete serviceaccount <span class="token parameter variable">-n</span> kube-system external-dns
+</code></pre></div><p>Check the nodes:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl describe nodes
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>Name:               fargate-ip-192-168-105-82.eu-central-1.compute.internal
+Roles:              &amp;lt;none&gt;
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    eks.amazonaws.com/compute-type=fargate
+                    failure-domain.beta.kubernetes.io/region=eu-central-1
+                    failure-domain.beta.kubernetes.io/zone=eu-central-1b
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=ip-192-168-105-82.eu-central-1.compute.internal
+                    kubernetes.io/os=linux
+                    topology.kubernetes.io/region=eu-central-1
+                    topology.kubernetes.io/zone=eu-central-1b
+Annotations:        node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Sat, 02 Jan 2021 11:13:17 +0100
+Taints:             eks.amazonaws.com/compute-type=fargate:NoSchedule
+Unschedulable:      false
+Lease:
+  HolderIdentity:  fargate-ip-192-168-105-82.eu-central-1.compute.internal
+  AcquireTime:     &amp;lt;unset&gt;
+  RenewTime:       Sat, 02 Jan 2021 11:15:17 +0100
+Conditions:
+  Type             Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----             ------  -----------------                 ------------------                ------                       -------
+  MemoryPressure   False   Sat, 02 Jan 2021 11:13:47 +0100   Sat, 02 Jan 2021 11:13:17 +0100   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure     False   Sat, 02 Jan 2021 11:13:47 +0100   Sat, 02 Jan 2021 11:13:17 +0100   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure      False   Sat, 02 Jan 2021 11:13:47 +0100   Sat, 02 Jan 2021 11:13:17 +0100   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready            True    Sat, 02 Jan 2021 11:13:47 +0100   Sat, 02 Jan 2021 11:13:27 +0100   KubeletReady                 kubelet is posting ready status
+Addresses:
+  InternalIP:   192.168.105.82
+  InternalDNS:  ip-192-168-105-82.eu-central-1.compute.internal
+  Hostname:     ip-192-168-105-82.eu-central-1.compute.internal
+Capacity:
+  attachable-volumes-aws-ebs:  39
+  cpu:                         2
+  ephemeral-storage:           30832548Ki
+  hugepages-1Gi:               0
+  hugepages-2Mi:               0
+  memory:                      15649708Ki
+  pods:                        1
+Allocatable:
+  attachable-volumes-aws-ebs:  39
+  cpu:                         2
+  ephemeral-storage:           28415276190
+  hugepages-1Gi:               0
+  hugepages-2Mi:               0
+  memory:                      15547308Ki
+  pods:                        1
+System Info:
+  Machine ID:
+  System UUID:                EC2C7130-59B9-D75C-F44C-2CCFAD69C864
+  Boot ID:                    e2e285fa-b723-4c1c-84c2-10c680f0c0d3
+  Kernel Version:             4.14.209-160.335.amzn2.x86_64
+  OS Image:                   Amazon Linux 2
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  containerd://1.3.2
+  Kubelet Version:            v1.18.8-eks-7c9bda
+  Kube-Proxy Version:         v1.18.8-eks-7c9bda
+ProviderID:                   aws:///eu-central-1b/7b1974769e-0d7cb3f0582c4079908372a2c1d80b16/fargate-ip-192-168-105-82.eu-central-1.compute.internal
+Non-terminated Pods:          (1 in total)
+  Namespace                   Name                        CPU Requests  CPU Limits  Memory Requests  Memory Limits  AGE
+  ---------                   ----                        ------------  ----------  ---------------  -------------  ---
+  kube-system                 coredns-7c5b55f765-kx2sr    100m (5%)     0 (0%)      70Mi (0%)        170Mi (1%)     2m52s
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource                    Requests   Limits
+  --------                    --------   ------
+  cpu                         100m (5%)  0 (0%)
+  memory                      70Mi (0%)  170Mi (1%)
+  ephemeral-storage           0 (0%)     0 (0%)
+  hugepages-1Gi               0 (0%)     0 (0%)
+  hugepages-2Mi               0 (0%)     0 (0%)
+  attachable-volumes-aws-ebs  0          0
+Events:
+  Type     Reason                   Age                  From     Message
+  ----     ------                   ----                 ----     -------
+  Normal   Starting                 2m1s                 kubelet  Starting kubelet.
+  Warning  InvalidDiskCapacity      2m1s                 kubelet  invalid capacity 0 on image filesystem
+  Normal   NodeHasSufficientMemory  2m1s (x2 over 2m1s)  kubelet  Node fargate-ip-192-168-105-82.eu-central-1.compute.internal status is now: NodeHasSufficientMemory
+  Normal   NodeHasNoDiskPressure    2m1s (x2 over 2m1s)  kubelet  Node fargate-ip-192-168-105-82.eu-central-1.compute.internal status is now: NodeHasNoDiskPressure
+  Normal   NodeHasSufficientPID     2m1s (x2 over 2m1s)  kubelet  Node fargate-ip-192-168-105-82.eu-central-1.compute.internal status is now: NodeHasSufficientPID
+  Normal   NodeAllocatableEnforced  2m1s                 kubelet  Updated Node Allocatable limit across pods
+  Normal   NodeReady                111s                 kubelet  Node fargate-ip-192-168-105-82.eu-central-1.compute.internal status is now: NodeReady
+
+
+Name:               fargate-ip-192-168-124-70.eu-central-1.compute.internal
+Roles:              &amp;lt;none&gt;
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    eks.amazonaws.com/compute-type=fargate
+                    failure-domain.beta.kubernetes.io/region=eu-central-1
+                    failure-domain.beta.kubernetes.io/zone=eu-central-1b
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=ip-192-168-124-70.eu-central-1.compute.internal
+                    kubernetes.io/os=linux
+                    topology.kubernetes.io/region=eu-central-1
+                    topology.kubernetes.io/zone=eu-central-1b
+Annotations:        node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Sat, 02 Jan 2021 11:13:07 +0100
+Taints:             eks.amazonaws.com/compute-type=fargate:NoSchedule
+Unschedulable:      false
+Lease:
+  HolderIdentity:  fargate-ip-192-168-124-70.eu-central-1.compute.internal
+  AcquireTime:     &amp;lt;unset&gt;
+  RenewTime:       Sat, 02 Jan 2021 11:15:17 +0100
+Conditions:
+  Type             Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----             ------  -----------------                 ------------------                ------                       -------
+  MemoryPressure   False   Sat, 02 Jan 2021 11:13:37 +0100   Sat, 02 Jan 2021 11:13:05 +0100   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure     False   Sat, 02 Jan 2021 11:13:37 +0100   Sat, 02 Jan 2021 11:13:05 +0100   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure      False   Sat, 02 Jan 2021 11:13:37 +0100   Sat, 02 Jan 2021 11:13:05 +0100   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready            True    Sat, 02 Jan 2021 11:13:37 +0100   Sat, 02 Jan 2021 11:13:17 +0100   KubeletReady                 kubelet is posting ready status
+Addresses:
+  InternalIP:   192.168.124.70
+  InternalDNS:  ip-192-168-124-70.eu-central-1.compute.internal
+  Hostname:     ip-192-168-124-70.eu-central-1.compute.internal
+Capacity:
+  attachable-volumes-aws-ebs:  39
+  cpu:                         2
+  ephemeral-storage:           30832548Ki
+  hugepages-1Gi:               0
+  hugepages-2Mi:               0
+  memory:                      15649708Ki
+  pods:                        1
+Allocatable:
+  attachable-volumes-aws-ebs:  39
+  cpu:                         2
+  ephemeral-storage:           28415276190
+  hugepages-1Gi:               0
+  hugepages-2Mi:               0
+  memory:                      15547308Ki
+  pods:                        1
+System Info:
+  Machine ID:
+  System UUID:                EC22AB0C-4298-1C2A-14A2-F8A5D6E468AC
+  Boot ID:                    af1a037c-80a3-4bfa-a8bb-265e8f4c8a75
+  Kernel Version:             4.14.209-160.335.amzn2.x86_64
+  OS Image:                   Amazon Linux 2
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  containerd://1.3.2
+  Kubelet Version:            v1.18.8-eks-7c9bda
+  Kube-Proxy Version:         v1.18.8-eks-7c9bda
+ProviderID:                   aws:///eu-central-1b/7b1974769e-d83c17722dfc47ada789fa9fed2a89b4/fargate-ip-192-168-124-70.eu-central-1.compute.internal
+Non-terminated Pods:          (1 in total)
+  Namespace                   Name                        CPU Requests  CPU Limits  Memory Requests  Memory Limits  AGE
+  ---------                   ----                        ------------  ----------  ---------------  -------------  ---
+  kube-system                 coredns-7c5b55f765-dwzb8    100m (5%)     0 (0%)      70Mi (0%)        170Mi (1%)     2m52s
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource                    Requests   Limits
+  --------                    --------   ------
+  cpu                         100m (5%)  0 (0%)
+  memory                      70Mi (0%)  170Mi (1%)
+  ephemeral-storage           0 (0%)     0 (0%)
+  hugepages-1Gi               0 (0%)     0 (0%)
+  hugepages-2Mi               0 (0%)     0 (0%)
+  attachable-volumes-aws-ebs  0          0
+Events:
+  Type     Reason                   Age                    From     Message
+  ----     ------                   ----                   ----     -------
+  Normal   Starting                 2m13s                  kubelet  Starting kubelet.
+  Warning  InvalidDiskCapacity      2m13s                  kubelet  invalid capacity 0 on image filesystem
+  Normal   NodeHasSufficientMemory  2m13s (x2 over 2m13s)  kubelet  Node fargate-ip-192-168-124-70.eu-central-1.compute.internal status is now: NodeHasSufficientMemory
+  Normal   NodeHasNoDiskPressure    2m13s (x2 over 2m13s)  kubelet  Node fargate-ip-192-168-124-70.eu-central-1.compute.internal status is now: NodeHasNoDiskPressure
+  Normal   NodeHasSufficientPID     2m13s (x2 over 2m13s)  kubelet  Node fargate-ip-192-168-124-70.eu-central-1.compute.internal status is now: NodeHasSufficientPID
+  Normal   NodeAllocatableEnforced  2m13s                  kubelet  Updated Node Allocatable limit across pods
+  Normal   NodeReady                2m1s                   kubelet  Node fargate-ip-192-168-124-70.eu-central-1.compute.internal status is now: NodeReady
+</code></pre></div><p>Check the pods:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl get pods --all-namespaces
+</code></pre></div><p>Output:</p> <div class="language-text extra-class"><pre class="language-text"><code>NAMESPACE     NAME                       READY   STATUS    RESTARTS   AGE
+kube-system   coredns-7c5b55f765-dwzb8   1/1     Running   0          2m52s
+kube-system   coredns-7c5b55f765-kx2sr   1/1     Running   0          2m52s
+</code></pre></div><div class="custom-block warning"><p class="custom-block-title">WARNING</p> <p>In case of Amazon EKS on AWS Fargate every pod is running on single node.</p></div> <p>Attach the policy to the <a href="https://docs.aws.amazon.com/eks/latest/userguide/pod-execution-role.html" target="_blank" rel="noopener noreferrer">pod execution role<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>
+of your EKS on Fargate cluster:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token assign-left variable">CLUSTER_ARN</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>eksctl get iamidentitymapping <span class="token parameter variable">--cluster</span><span class="token operator">=</span><span class="token string">&quot;<span class="token variable">${CLUSTER_NAME}</span>&quot;</span> <span class="token parameter variable">-o</span> json <span class="token operator">|</span> jq <span class="token parameter variable">-r</span> <span class="token string">&quot;.[].rolearn&quot;</span><span class="token variable">)</span></span>
+aws iam attach-role-policy --policy-arn <span class="token string">&quot;<span class="token variable">${CLOUDWATCH_POLICY_ARN}</span>&quot;</span> --role-name <span class="token string">&quot;<span class="token variable">${CLUSTER_ARN<span class="token operator">#</span>*<span class="token operator">/</span>}</span>&quot;</span>
+</code></pre></div><p>Create the dedicated <code>aws-observability</code> namespace and the ConfigMap for Fluent Bit:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl apply <span class="token parameter variable">-f</span> - <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: aws-observability
+  labels:
+    aws-observability: enabled
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: aws-logging
+  namespace: aws-observability
+data:
+  output.conf: |
+    [OUTPUT]
+        Name cloudwatch_logs
+        Match   *
+        region <span class="token variable">${AWS_DEFAULT_REGION}</span>
+        log_group_name /aws/eks/<span class="token variable">${CLUSTER_FQDN}</span>/logs
+        log_stream_prefix fluentbit-
+        auto_create_group On
+EOF</span>
+</code></pre></div><p>All the Fargate pods should now send the log to CloudWatch...</p></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ruzickap/k8s-fargate-eks/edit/master/docs/part-01/README.md" target="_blank" rel="noopener noreferrer">Edit this page</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">6/30/2024, 4:09:44 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/k8s-fargate-eks/" class="prev router-link-active">
+        AWS Fargate with Amazon EKS
+      </a></span> <span class="next"><a href="/k8s-fargate-eks/part-02/">
+        K8s tools
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/k8s-fargate-eks/assets/js/app.98b2ebc6.js" defer></script><script src="/k8s-fargate-eks/assets/js/2.a27de003.js" defer></script><script src="/k8s-fargate-eks/assets/js/1.30a6593f.js" defer></script><script src="/k8s-fargate-eks/assets/js/23.ca52321a.js" defer></script>
+  </body>
+</html>
